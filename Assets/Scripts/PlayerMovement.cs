@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
             velocity = velocity.normalized;
         }
 
-        rb.velocity = velocity * moveSpeed;
+        rb.linearVelocity = velocity * moveSpeed;
     }
 
     private static Vector2 GetCardinalDirection(Vector2 input)
