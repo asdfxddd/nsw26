@@ -1,2 +1,2 @@
-StageId,SceneName,StageName
-1,Stage01,첫 번째 스테이지
+﻿StageId,SceneName,StageName
+1,GameScene,Main Stage
