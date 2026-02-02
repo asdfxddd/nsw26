@@ -83,12 +83,6 @@ public class ProjectileController : MonoBehaviour
     {
         Vector2 direction = moveDirection.sqrMagnitude > 0f ? moveDirection.normalized : Vector2.right;
         bool flipX = direction.x < 0f;
-        Vector2 rotationDirection = direction;
-
-        if (flipX)
-        {
-            rotationDirection = new Vector2(-direction.x, direction.y);
-        }
 
         if (spriteRenderer != null)
         {
@@ -96,7 +90,7 @@ public class ProjectileController : MonoBehaviour
         }
 
         Quaternion baseRotation = baseRotationReference != null ? baseRotationReference.rotation : Quaternion.identity;
-        Quaternion lookRotation = Quaternion.FromToRotation(Vector3.right, new Vector3(rotationDirection.x, rotationDirection.y, 0f));
+        Quaternion lookRotation = Quaternion.FromToRotation(Vector3.right, new Vector3(direction.x, direction.y, 0f));
         transform.rotation = baseRotation * lookRotation;
     }
 }
