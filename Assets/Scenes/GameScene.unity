@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 1585865182}
   - component: {fileID: 1585865181}
   - component: {fileID: 1585865183}
+  - component: {fileID: 1585865184}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -395,7 +396,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585865177}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -460,6 +461,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5574666, y: 0.582883}
   m_EdgeRadius: 0
+--- !u!114 &1585865184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585865177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 567ba683c0a7ad14a81371e14c6a59f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoShooter
+  fireInterval: 0.5
+  minTurnCooldown: 0.15
+  projectilePrefab: {fileID: 8145748074408459498, guid: 6d832d910c5d2be4f89b00b2e4e7bf0c, type: 3}
+  spawnPoint: {fileID: 1585865180}
+  baseRotationReference: {fileID: 1585865180}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

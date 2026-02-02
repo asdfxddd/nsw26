@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3867929921477041309}
   - component: {fileID: 5337971745173259034}
   - component: {fileID: 7261151501166651488}
+  - component: {fileID: 8145748074408459498}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -166,3 +167,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.39916205, y: 0.18795782}
   m_EdgeRadius: 0
+--- !u!114 &8145748074408459498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3676904236074895373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef41b47f4d210ab49a650e25788e1229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileController
+  damage: 10
+  speed: 6
+  lifetime: 2
+  scale: 1
