@@ -84,6 +84,15 @@ public class ProjectileController : MonoBehaviour
         Vector2 direction = moveDirection.sqrMagnitude > 0f ? moveDirection.normalized : Vector2.right;
         bool flipX = direction.x < 0f;
 
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            if (spriteRenderer == null)
+            {
+                spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            }
+        }
+
         if (spriteRenderer != null)
         {
             spriteRenderer.flipX = flipX;
