@@ -8,6 +8,9 @@ public class FollowCamera : MonoBehaviour
     [SerializeField]
     private float zOffset = -10f;
 
+    [SerializeField]
+    private MapBoundaryController mapBoundary;
+
     private Transform playerTransform;
     private Vector3 velocity;
 
@@ -17,6 +20,11 @@ public class FollowCamera : MonoBehaviour
         if (player != null)
         {
             playerTransform = player.transform;
+        }
+
+        if (mapBoundary == null)
+        {
+            mapBoundary = FindObjectOfType<MapBoundaryController>();
         }
     }
 
@@ -35,6 +43,12 @@ public class FollowCamera : MonoBehaviour
 
         Vector3 targetPosition = playerTransform.position;
         targetPosition.z = zOffset;
+
+        if (mapBoundary != null)
+        {
+            targetPosition = mapBoundary.ClampPosition(targetPosition);
+            targetPosition.z = zOffset;
+        }
 
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
     }
