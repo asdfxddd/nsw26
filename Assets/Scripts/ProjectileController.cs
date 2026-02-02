@@ -90,8 +90,9 @@ public class ProjectileController : MonoBehaviour
         }
 
         Quaternion baseRotation = baseRotationReference != null ? baseRotationReference.rotation : Quaternion.identity;
-        Quaternion lookRotation = Quaternion.FromToRotation(Vector3.right, new Vector3(direction.x, direction.y, 0f));
-        transform.rotation = baseRotation * lookRotation;
+        Vector3 baseRight = baseRotationReference != null ? baseRotationReference.right : Vector3.right;
+        Quaternion lookRotation = Quaternion.FromToRotation(baseRight, new Vector3(direction.x, direction.y, 0f));
+        transform.rotation = lookRotation * baseRotation;
     }
 }
 
