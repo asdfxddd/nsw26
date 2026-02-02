@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    [SerializeField]
+    private MapBoundaryController mapBoundary;
+
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private Vector2 lastMoveDirection = Vector2.down;
@@ -23,6 +26,11 @@ public class PlayerMovement : MonoBehaviour
         if (animator == null)
         {
             animator = GetComponent<Animator>();
+        }
+
+        if (mapBoundary == null)
+        {
+            mapBoundary = FindObjectOfType<MapBoundaryController>();
         }
     }
 
@@ -55,7 +63,18 @@ public class PlayerMovement : MonoBehaviour
             velocity = velocity.normalized;
         }
 
-        rb.linearVelocity = velocity * moveSpeed;
+        Vector2 delta = velocity * moveSpeed * Time.fixedDeltaTime;
+        Vector2 targetPosition = rb.position + delta;
+
+        if (mapBoundary != null)
+        {
+            Vector3 clampedPosition = mapBoundary.ClampPosition(targetPosition);
+            rb.MovePosition(clampedPosition);
+        }
+        else
+        {
+            rb.MovePosition(targetPosition);
+        }
     }
 
     private static Vector2 GetCardinalDirection(Vector2 input)
