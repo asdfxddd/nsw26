@@ -8,8 +8,20 @@ public class MonsterChase : MonoBehaviour
     [SerializeField]
     private Transform target;
 
+    [SerializeField]
+    private Transform visualRoot;
+
+    private float baseScaleX = 1f;
+
     private void Awake()
     {
+        if (visualRoot == null)
+        {
+            visualRoot = transform;
+        }
+
+        baseScaleX = Mathf.Abs(visualRoot.localScale.x);
+
         if (target == null)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -45,5 +57,19 @@ public class MonsterChase : MonoBehaviour
 
         Vector3 delta = direction.normalized * moveSpeed * Time.deltaTime;
         transform.position += delta;
+
+        UpdateFacing(direction.x);
+    }
+
+    private void UpdateFacing(float directionX)
+    {
+        if (Mathf.Approximately(directionX, 0f))
+        {
+            return;
+        }
+
+        Vector3 scale = visualRoot.localScale;
+        scale.x = directionX > 0f ? baseScaleX : -baseScaleX;
+        visualRoot.localScale = scale;
     }
 }
