@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -16,6 +17,12 @@ public class ProjectileController : MonoBehaviour
 
     [SerializeField]
     private float scale = 1f;
+
+    [SerializeField]
+    private string monsterLayerName = "monster";
+
+    [SerializeField]
+    private string projectileLayerName = "projectile";
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
@@ -76,13 +83,17 @@ public class ProjectileController : MonoBehaviour
             return;
         }
 
-        if (target.CompareTag("Player") || target.CompareTag("Projectile"))
+        if (target == gameObject || target.CompareTag("Player"))
         {
             return;
         }
 
-        int enemyLayer = LayerMask.NameToLayer("Enemy");
-        if (enemyLayer < 0 || target.layer != enemyLayer)
+        if (IsLayerName(target.layer, projectileLayerName))
+        {
+            return;
+        }
+
+        if (!IsLayerName(target.layer, monsterLayerName))
         {
             return;
         }
@@ -99,6 +110,17 @@ public class ProjectileController : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    private static bool IsLayerName(int layer, string expectedLayerName)
+    {
+        if (string.IsNullOrWhiteSpace(expectedLayerName))
+        {
+            return false;
+        }
+
+        string actualLayerName = LayerMask.LayerToName(layer);
+        return string.Equals(actualLayerName, expectedLayerName, StringComparison.OrdinalIgnoreCase);
     }
 
     private void ApplyOrientation()
