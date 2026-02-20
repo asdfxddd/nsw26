@@ -54,7 +54,7 @@ public class ProjectileController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = moveDirection * speed;
+        rb.linearVelocity = moveDirection * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
