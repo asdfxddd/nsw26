@@ -19,6 +19,7 @@ public class ProjectileController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Vector2 moveDirection = Vector2.right;
     private Transform baseRotationReference;
+    private bool hasImpacted;
 
     public void Initialize(Vector2 direction, Transform rotationReference)
     {
@@ -35,18 +36,25 @@ public class ProjectileController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+
         transform.localScale = Vector3.one * scale;
     }
 
     private void OnEnable()
     {
+        hasImpacted = false;
         ApplyOrientation();
         Destroy(gameObject, lifetime);
     }
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = moveDirection * speed;
+        rb.velocity = moveDirection * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -61,11 +69,18 @@ public class ProjectileController : MonoBehaviour
 
     private void TryDamage(GameObject target)
     {
+        if (hasImpacted)
+        {
+            return;
+        }
+
         int enemyLayer = LayerMask.NameToLayer("Enemy");
         if (enemyLayer < 0 || target.layer != enemyLayer)
         {
             return;
         }
+
+        hasImpacted = true;
 
         if (target.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
@@ -84,24 +99,30 @@ public class ProjectileController : MonoBehaviour
         Vector2 direction = moveDirection.sqrMagnitude > 0f ? moveDirection.normalized : Vector2.right;
         bool flipX = direction.x < 0f;
 
-        if (spriteRenderer == null)
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            if (spriteRenderer == null)
-            {
-                spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-            }
-        }
-
         if (spriteRenderer != null)
         {
             spriteRenderer.flipX = flipX;
         }
 
         Quaternion baseRotation = baseRotationReference != null ? baseRotationReference.rotation : Quaternion.identity;
-        Vector3 baseRight = baseRotationReference != null ? baseRotationReference.right : Vector3.right;
-        Quaternion lookRotation = Quaternion.FromToRotation(baseRight, new Vector3(direction.x, direction.y, 0f));
-        transform.rotation = lookRotation * baseRotation;
+        Vector2 baseRight = baseRotationReference != null ? baseRotationReference.right : Vector2.right;
+
+        float baseRightAngle = Mathf.Atan2(baseRight.y, baseRight.x) * Mathf.Rad2Deg;
+        float directionAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Sprite's default forward is +X. If flipped, visual forward becomes -X,
+        // so we offset by 180° to keep left-diagonal orientations correct.
+        float visualFacingAngle = flipX ? directionAngle - 180f : directionAngle;
+
+        float relativeAngle = Mathf.DeltaAngle(baseRightAngle, visualFacingAngle);
+        transform.rotation = Quaternion.AngleAxis(relativeAngle, Vector3.forward) * baseRotation;
+    }
+
+    private void OnValidate()
+    {
+        speed = Mathf.Max(0f, speed);
+        lifetime = Mathf.Max(0f, lifetime);
+        scale = Mathf.Max(0.01f, scale);
     }
 }
 

@@ -58,6 +58,13 @@ public class AutoShooter : MonoBehaviour
         Transform spawnTransform = spawnPoint != null ? spawnPoint : transform;
         ProjectileController projectile = Instantiate(projectilePrefab, spawnTransform.position, Quaternion.identity);
         projectile.Initialize(lastAimDirection, baseRotationReference);
+
         nextFireTime = Time.time + fireInterval;
+    }
+
+    private void OnValidate()
+    {
+        fireInterval = Mathf.Max(0f, fireInterval);
+        minTurnCooldown = Mathf.Max(0f, minTurnCooldown);
     }
 }
