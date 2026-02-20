@@ -137,6 +137,12 @@ public class MonsterSpawner : MonoBehaviour
         {
             Vector3 position = GetSpawnPosition();
             GameObject instance = Instantiate(prefab, position, Quaternion.identity);
+
+            if (!instance.TryGetComponent<MonsterController>(out _))
+            {
+                instance.AddComponent<MonsterController>();
+            }
+
             MonsterSpawnTracker tracker = instance.GetComponent<MonsterSpawnTracker>();
             if (tracker == null)
             {
