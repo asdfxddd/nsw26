@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class ProjectileController : MonoBehaviour
 {
     [SerializeField]
-    private float damage = 1f;
+    [FormerlySerializedAs("damage")]
+    private float projectileDamage = 1f;
 
     [SerializeField]
     private float speed = 6f;
@@ -74,6 +76,11 @@ public class ProjectileController : MonoBehaviour
             return;
         }
 
+        if (target.CompareTag("Player") || target.CompareTag("Projectile"))
+        {
+            return;
+        }
+
         int enemyLayer = LayerMask.NameToLayer("Enemy");
         if (enemyLayer < 0 || target.layer != enemyLayer)
         {
@@ -84,11 +91,11 @@ public class ProjectileController : MonoBehaviour
 
         if (target.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            damageable.TakeDamage(damage);
+            damageable.TakeDamage(projectileDamage);
         }
         else
         {
-            target.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+            target.SendMessage("TakeDamage", projectileDamage, SendMessageOptions.DontRequireReceiver);
         }
 
         Destroy(gameObject);
@@ -120,6 +127,7 @@ public class ProjectileController : MonoBehaviour
 
     private void OnValidate()
     {
+        projectileDamage = Mathf.Max(0f, projectileDamage);
         speed = Mathf.Max(0f, speed);
         lifetime = Mathf.Max(0f, lifetime);
         scale = Mathf.Max(0.01f, scale);
