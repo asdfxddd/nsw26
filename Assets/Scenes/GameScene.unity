@@ -1202,7 +1202,8 @@ GameObject:
   - component: {fileID: 1585865181}
   - component: {fileID: 1585865183}
   - component: {fileID: 1585865184}
-  m_Layer: 0
+  - component: {fileID: 1585865185}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1411,6 +1412,25 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8145748074408459498, guid: 6d832d910c5d2be4f89b00b2e4e7bf0c, type: 3}
   spawnPoint: {fileID: 1585865180}
   baseRotationReference: {fileID: 1585865180}
+--- !u!114 &1585865185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585865177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 121e4d68fa20d4a4d984b2f252a2af0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHP: 100
+  invincibleTime: 1
+  hpImage: {fileID: 1105915768}
+  spriteRenderer: {fileID: 1585865179}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

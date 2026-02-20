@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 174146958483838529}
   - component: {fileID: 1912765054022426221}
   - component: {fileID: -6681906556771927402}
+  - component: {fileID: -6688072022488296292}
   m_Layer: 0
   m_Name: Monster001
   m_TagString: Untagged
@@ -161,3 +162,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.55571055, y: 0.4006567}
   m_EdgeRadius: 0
+--- !u!114 &-6688072022488296292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8733034588487869684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df35c5f018cc9ac44aecead136484f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterController
+  maxHP: 3
+  attackDamage: 10
