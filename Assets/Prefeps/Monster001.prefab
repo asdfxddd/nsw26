@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 1912765054022426221}
   - component: {fileID: -6681906556771927402}
   - component: {fileID: -6688072022488296292}
-  m_Layer: 0
+  - component: {fileID: 7571276629715028042}
+  m_Layer: 7
   m_Name: Monster001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +147,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -174,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df35c5f018cc9ac44aecead136484f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterController
-  maxHP: 200
+  maxHP: 3
   attackDamage: 10
   expDropEntries:
   - orbPrefab: {fileID: 3582209635756992835, guid: a4d9609dc7a38fd4dbc7d87448799e8a, type: 3}
@@ -183,3 +184,18 @@ MonoBehaviour:
     dropChance: 0.35
   - orbPrefab: {fileID: 3582209635756992835, guid: a38b2959e9f35794f8fde9d0a031545b, type: 3}
     dropChance: 0.1
+--- !u!114 &7571276629715028042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8733034588487869684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92011d25ac9b48a8943a09dd76bc2d99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterChase
+  moveSpeed: 1.5
+  target: {fileID: 0}
+  visualRoot: {fileID: 0}
