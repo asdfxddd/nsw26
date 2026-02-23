@@ -174,5 +174,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df35c5f018cc9ac44aecead136484f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterController
-  maxHP: 3
+  maxHP: 200
   attackDamage: 10
+  expDropEntries:
+  - orbPrefab: {fileID: 3582209635756992835, guid: a4d9609dc7a38fd4dbc7d87448799e8a, type: 3}
+    dropChance: 0.8
+  - orbPrefab: {fileID: 3582209635756992835, guid: 55acd12b89149f34fb6698619c8b967c, type: 3}
+    dropChance: 0.35
+  - orbPrefab: {fileID: 3582209635756992835, guid: a38b2959e9f35794f8fde9d0a031545b, type: 3}
+    dropChance: 0.1
