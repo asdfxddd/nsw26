@@ -28,6 +28,13 @@ public class MonsterSpawner : MonoBehaviour
         public float nextWaveTime;
     }
 
+    [Serializable]
+    public class MonsterPrefabEntry
+    {
+        public string MonsterId;
+        public GameObject Prefab;
+    }
+
     [SerializeField]
     private string stageMonsterResourcePath = "StageMonster";
 
@@ -55,7 +62,11 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField]
     private float spawnRadiusThickness = 1.5f;
 
+    [SerializeField]
+    private List<MonsterPrefabEntry> monsterPrefabs = new List<MonsterPrefabEntry>();
+
     private readonly List<SpawnRuntime> activeRules = new List<SpawnRuntime>();
+    private readonly Dictionary<string, GameObject> monsterPrefabLookup = new Dictionary<string, GameObject>(StringComparer.OrdinalIgnoreCase);
 
     private void Awake()
     {
@@ -77,6 +88,8 @@ public class MonsterSpawner : MonoBehaviour
         {
             mapBoundary = FindObjectOfType<MapBoundaryController>();
         }
+
+        BuildMonsterPrefabLookup();
 
         LoadRules();
     }
@@ -126,10 +139,9 @@ public class MonsterSpawner : MonoBehaviour
 
     private void SpawnWave(SpawnRuntime runtime, int count)
     {
-        GameObject prefab = Resources.Load<GameObject>(runtime.rule.MonsterId);
-        if (prefab == null)
+        if (!monsterPrefabLookup.TryGetValue(runtime.rule.MonsterId, out GameObject prefab) || prefab == null)
         {
-            Debug.LogWarning($"Monster prefab '{runtime.rule.MonsterId}' not found in Resources.");
+            Debug.LogWarning($"Monster prefab '{runtime.rule.MonsterId}' not found in Monster Prefabs list.");
             return;
         }
 
@@ -152,6 +164,20 @@ public class MonsterSpawner : MonoBehaviour
             tracker.Initialize(this, runtime);
             runtime.totalSpawned++;
             runtime.aliveCount++;
+        }
+    }
+
+    private void BuildMonsterPrefabLookup()
+    {
+        monsterPrefabLookup.Clear();
+        foreach (MonsterPrefabEntry entry in monsterPrefabs)
+        {
+            if (entry == null || string.IsNullOrWhiteSpace(entry.MonsterId) || entry.Prefab == null)
+            {
+                continue;
+            }
+
+            monsterPrefabLookup[entry.MonsterId.Trim()] = entry.Prefab;
         }
     }
 
