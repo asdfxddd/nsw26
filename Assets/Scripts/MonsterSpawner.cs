@@ -141,7 +141,9 @@ public class MonsterSpawner : MonoBehaviour
     {
         if (!monsterPrefabLookup.TryGetValue(runtime.rule.MonsterId, out GameObject prefab) || prefab == null)
         {
+
             Debug.LogWarning($"Monster prefab '{runtime.rule.MonsterId}' not found in Monster Prefabs list.");
+
             return;
         }
 
@@ -172,12 +174,16 @@ public class MonsterSpawner : MonoBehaviour
         monsterPrefabLookup.Clear();
         foreach (MonsterPrefabEntry entry in monsterPrefabs)
         {
+
             if (entry == null || string.IsNullOrWhiteSpace(entry.MonsterId) || entry.Prefab == null)
+
             {
                 continue;
             }
 
+
             monsterPrefabLookup[entry.MonsterId.Trim()] = entry.Prefab;
+
         }
     }
 
