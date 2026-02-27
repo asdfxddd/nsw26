@@ -33,7 +33,7 @@ public class MonsterController : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
-        if (amount <= 0f || currentHP <= 0f)
+        if (GameplayPauseState.IsGameplayPaused || amount <= 0f || currentHP <= 0f)
         {
             return;
         }
@@ -57,7 +57,7 @@ public class MonsterController : MonoBehaviour, IDamageable
 
     private void TryAttackPlayer(GameObject target)
     {
-        if (!target.CompareTag("Player"))
+        if (GameplayPauseState.IsGameplayPaused || !target.CompareTag("Player"))
         {
             return;
         }

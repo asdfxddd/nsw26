@@ -78,7 +78,7 @@ public class ProjectileController : MonoBehaviour
 
     private void TryDamage(GameObject target)
     {
-        if (hasImpacted)
+        if (GameplayPauseState.IsGameplayPaused || hasImpacted)
         {
             return;
         }

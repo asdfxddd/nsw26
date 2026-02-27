@@ -23,6 +23,11 @@ public class AutoShooter : MonoBehaviour
 
     private void Update()
     {
+        if (GameplayPauseState.IsGameplayPaused)
+        {
+            return;
+        }
+
         UpdateAimDirection();
         TryFire();
     }
