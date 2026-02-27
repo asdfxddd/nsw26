@@ -71,6 +71,7 @@ public class AutoShooter : MonoBehaviour
         ProjectileController projectile = Instantiate(projectilePrefab, spawnTransform.position, Quaternion.identity);
         projectile.Initialize(lastAimDirection, baseRotationReference);
         projectile.SetOwnerStatus(playerStatus);
+        projectile.SetRemainingSplitCount(playerStatus != null ? playerStatus.ProjectileSplitCount : 0);
 
         nextFireTime = Time.time + fireInterval;
     }

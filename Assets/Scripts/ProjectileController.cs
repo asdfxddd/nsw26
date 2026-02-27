@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -27,12 +28,15 @@ public class ProjectileController : MonoBehaviour, IPlayerAttackDamageSource
 
     public float DamageMultiplier => damageMultiplier;
 
+    private readonly HashSet<int> blockedTargetIds = new HashSet<int>();
+
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Vector2 moveDirection = Vector2.right;
     private Transform baseRotationReference;
     private PlayerStatus ownerStatus;
     private bool hasImpacted;
+    private int remainingSplitCount;
 
     public void Initialize(Vector2 direction, Transform rotationReference)
     {
@@ -48,6 +52,25 @@ public class ProjectileController : MonoBehaviour, IPlayerAttackDamageSource
     public void SetOwnerStatus(PlayerStatus playerStatus)
     {
         ownerStatus = playerStatus;
+    }
+
+    public void SetRemainingSplitCount(int count)
+    {
+        remainingSplitCount = Mathf.Max(0, count);
+    }
+
+    public void SetBlockedTargets(IEnumerable<int> targetInstanceIds)
+    {
+        blockedTargetIds.Clear();
+        if (targetInstanceIds == null)
+        {
+            return;
+        }
+
+        foreach (int targetId in targetInstanceIds)
+        {
+            blockedTargetIds.Add(targetId);
+        }
     }
 
     private void Awake()
@@ -107,11 +130,125 @@ public class ProjectileController : MonoBehaviour, IPlayerAttackDamageSource
             return;
         }
 
+        int targetId = target.GetInstanceID();
+        if (blockedTargetIds.Contains(targetId))
+        {
+            return;
+        }
+
         hasImpacted = true;
         float calculatedDamage = CalculateDamage();
         DamageSystem.ApplyPlayerDamage(target, calculatedDamage);
 
+        if (remainingSplitCount > 0)
+        {
+            SpawnSplitProjectiles(target);
+        }
+
         Destroy(gameObject);
+    }
+
+    private void SpawnSplitProjectiles(GameObject hitTarget)
+    {
+        Transform[] targets = FindClosestSplitTargets(hitTarget);
+        if (targets.Length <= 0)
+        {
+            return;
+        }
+
+        blockedTargetIds.Add(hitTarget.GetInstanceID());
+
+        int nextSplitCount = remainingSplitCount - 1;
+        Vector3 spawnPosition = transform.position;
+
+        for (int i = 0; i < targets.Length; i++)
+        {
+            Transform targetTransform = targets[i];
+            if (targetTransform == null)
+            {
+                continue;
+            }
+
+            Vector2 direction = (targetTransform.position - spawnPosition);
+            if (direction.sqrMagnitude <= 0.0001f)
+            {
+                direction = moveDirection;
+            }
+
+            ProjectileController splitProjectile = Instantiate(this, spawnPosition, Quaternion.identity);
+            splitProjectile.Initialize(direction, baseRotationReference);
+            splitProjectile.SetOwnerStatus(ownerStatus);
+            splitProjectile.SetRemainingSplitCount(nextSplitCount);
+            splitProjectile.SetBlockedTargets(blockedTargetIds);
+        }
+    }
+
+    private Transform[] FindClosestSplitTargets(GameObject hitTarget)
+    {
+        MonsterController[] monsters = FindObjectsByType<MonsterController>(FindObjectsSortMode.None);
+        if (monsters == null || monsters.Length <= 0)
+        {
+            return Array.Empty<Transform>();
+        }
+
+        Transform first = null;
+        Transform second = null;
+        float firstDistance = float.MaxValue;
+        float secondDistance = float.MaxValue;
+
+        Vector3 origin = transform.position;
+
+        for (int i = 0; i < monsters.Length; i++)
+        {
+            MonsterController monster = monsters[i];
+            if (monster == null)
+            {
+                continue;
+            }
+
+            Transform candidate = monster.transform;
+            if (candidate == null)
+            {
+                continue;
+            }
+
+            if (hitTarget != null && candidate.gameObject == hitTarget)
+            {
+                continue;
+            }
+
+            int candidateId = candidate.gameObject.GetInstanceID();
+            if (blockedTargetIds.Contains(candidateId))
+            {
+                continue;
+            }
+
+            float sqrDistance = (candidate.position - origin).sqrMagnitude;
+            if (sqrDistance < firstDistance)
+            {
+                second = first;
+                secondDistance = firstDistance;
+                first = candidate;
+                firstDistance = sqrDistance;
+            }
+            else if (sqrDistance < secondDistance)
+            {
+                second = candidate;
+                secondDistance = sqrDistance;
+            }
+        }
+
+        if (first != null && second != null)
+        {
+            return new[] { first, second };
+        }
+
+        if (first != null)
+        {
+            return new[] { first };
+        }
+
+        return Array.Empty<Transform>();
     }
 
     private float CalculateDamage()
