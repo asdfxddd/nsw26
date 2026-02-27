@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
-    private float maxHP = 100f;
-
-    [SerializeField]
     private float invincibleTime = 1f;
 
     [SerializeField]
@@ -20,13 +17,13 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     private UnityEvent onDeath;
 
-    private float currentHP;
     private bool isInvincible;
     private Coroutine invincibleRoutine;
     private Color originalColor = Color.white;
+    private PlayerStatus playerStatus;
 
-    public float MaxHP => maxHP;
-    public float CurrentHP => currentHP;
+    public float MaxHP => playerStatus != null ? playerStatus.CurrentMaxHP : 0f;
+    public float CurrentHP => playerStatus != null ? playerStatus.CurrentHP : 0f;
     public bool IsInvincible => isInvincible;
 
     private void Awake()
@@ -50,22 +47,32 @@ public class PlayerHealth : MonoBehaviour
             originalColor = spriteRenderer.color;
         }
 
-        maxHP = Mathf.Max(1f, maxHP);
-        currentHP = maxHP;
+        playerStatus = GetComponent<PlayerStatus>();
+        if (playerStatus == null)
+        {
+            playerStatus = gameObject.AddComponent<PlayerStatus>();
+        }
+
+        playerStatus.InitializeHealthForBattle();
         RefreshHpUI();
     }
 
     public bool TryTakeDamage(float damage)
     {
-        if (GameplayPauseState.IsGameplayPaused || damage <= 0f || currentHP <= 0f || isInvincible)
+        if (playerStatus == null)
         {
             return false;
         }
 
-        currentHP = Mathf.Max(0f, currentHP - damage);
+        if (GameplayPauseState.IsGameplayPaused || damage <= 0f || playerStatus.CurrentHP <= 0f || isInvincible)
+        {
+            return false;
+        }
+
+        playerStatus.TryTakeDamage(damage);
         RefreshHpUI();
 
-        if (currentHP <= 0f)
+        if (playerStatus.CurrentHP <= 0f)
         {
             Die();
             return true;
@@ -82,32 +89,30 @@ public class PlayerHealth : MonoBehaviour
 
     public void Heal(float amount)
     {
-        if (amount <= 0f || currentHP <= 0f)
+        if (playerStatus == null)
         {
             return;
         }
 
-        currentHP = Mathf.Min(maxHP, currentHP + amount);
-        RefreshHpUI();
+        if (playerStatus.TryHeal(amount))
+        {
+            RefreshHpUI();
+        }
     }
 
     public void IncreaseMaxHP(float amount, bool healByIncrease = false)
     {
-        if (amount <= 0f)
+        if (playerStatus == null || amount <= 0f)
         {
             return;
         }
 
-        maxHP += amount;
-        if (healByIncrease)
-        {
-            currentHP = Mathf.Min(maxHP, currentHP + amount);
-        }
-        else
-        {
-            currentHP = Mathf.Min(currentHP, maxHP);
-        }
+        playerStatus.IncreaseMaxHPFlat(amount, healByIncrease);
+        RefreshHpUI();
+    }
 
+    public void SyncFromStatus()
+    {
         RefreshHpUI();
     }
 
@@ -183,12 +188,17 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
 
-        hpImage.fillAmount = maxHP > 0f ? currentHP / maxHP : 0f;
+        if (playerStatus == null)
+        {
+            hpImage.fillAmount = 0f;
+            return;
+        }
+
+        hpImage.fillAmount = playerStatus.CurrentMaxHP > 0f ? playerStatus.CurrentHP / playerStatus.CurrentMaxHP : 0f;
     }
 
     private void OnValidate()
     {
-        maxHP = Mathf.Max(1f, maxHP);
         invincibleTime = Mathf.Max(0f, invincibleTime);
     }
 }
