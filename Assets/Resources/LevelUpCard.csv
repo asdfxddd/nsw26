@@ -1,0 +1,9 @@
+ID,Ratio,Required,Icon,Desc,Effect,Value
+1,30,,SkillCard,공격력이 10 증가합니다.,IncreaseAttack,10
+2,25,,SkillCard,이동 속도가 10% 증가합니다.,IncreaseMoveSpeed,10
+3,20,,SkillCard,최대 체력이 20 증가합니다.,IncreaseMaxHealth,20
+4,15,1,SkillCard,공격력이 추가로 20 증가합니다.,IncreaseAttack,20
+5,10,3,SkillCard,레벨 업 즉시 체력을 30 회복합니다.,HealOnLevelUp,30
+6,8,2,SkillCard,투사체 속도가 20% 증가합니다.,IncreaseProjectileSpeed,20
+7,6,4,SkillCard,치명타 확률이 10% 증가합니다.,IncreaseCriticalChance,10
+8,5,5,SkillCard,처치 시 체력 흡수량이 15% 증가합니다.,IncreaseLifeSteal,15
