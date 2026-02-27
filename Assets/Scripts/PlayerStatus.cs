@@ -24,6 +24,9 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     private float currentHP;
 
+    [SerializeField, Tooltip("HEAL 카드로 누적되는 흡혈(실제 피해 대비 회복) 퍼센트. 예: 30 = 30%")]
+    private float healOnDamagePercent;
+
     public float BaseAttack => baseAttack;
 
     public float BaseMaxHP => baseMaxHP;
@@ -46,6 +49,8 @@ public class PlayerStatus : MonoBehaviour
     public float CurrentMaxHP => currentMaxHP;
 
     public float CurrentHP => currentHP;
+
+    public float HealOnDamagePercent => healOnDamagePercent;
 
     private void Awake()
     {
@@ -146,6 +151,26 @@ public class PlayerStatus : MonoBehaviour
         externalAttackMultiplier *= multiplier;
     }
 
+    public void ApplyHealOnDamageCardPercent(float cardPercent)
+    {
+        if (cardPercent <= 0f)
+        {
+            return;
+        }
+
+        healOnDamagePercent += cardPercent;
+    }
+
+    public float CalculateHealFromDamage(float appliedDamage)
+    {
+        if (appliedDamage <= 0f || healOnDamagePercent <= 0f)
+        {
+            return 0f;
+        }
+
+        return appliedDamage * (healOnDamagePercent / 100f);
+    }
+
     private void OnValidate()
     {
         baseAttack = Mathf.Max(0f, baseAttack);
@@ -155,5 +180,6 @@ public class PlayerStatus : MonoBehaviour
         hpUpMultiplier = Mathf.Max(0.01f, hpUpMultiplier);
         currentMaxHP = Mathf.Max(1f, currentMaxHP);
         currentHP = Mathf.Clamp(currentHP, 0f, currentMaxHP);
+        healOnDamagePercent = Mathf.Max(0f, healOnDamagePercent);
     }
 }

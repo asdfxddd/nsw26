@@ -57,6 +57,16 @@ public class PlayerHealth : MonoBehaviour
         RefreshHpUI();
     }
 
+    private void OnEnable()
+    {
+        DamageSystem.OnPlayerDamageConfirmed += HandlePlayerDamageConfirmed;
+    }
+
+    private void OnDisable()
+    {
+        DamageSystem.OnPlayerDamageConfirmed -= HandlePlayerDamageConfirmed;
+    }
+
     public bool TryTakeDamage(float damage)
     {
         if (playerStatus == null)
@@ -114,6 +124,22 @@ public class PlayerHealth : MonoBehaviour
     public void SyncFromStatus()
     {
         RefreshHpUI();
+    }
+
+    private void HandlePlayerDamageConfirmed(float appliedDamage)
+    {
+        if (playerStatus == null)
+        {
+            return;
+        }
+
+        float healAmount = playerStatus.CalculateHealFromDamage(appliedDamage);
+        if (healAmount <= 0f)
+        {
+            return;
+        }
+
+        Heal(healAmount);
     }
 
     private void StartInvincibility()
