@@ -270,6 +270,41 @@ public class LevelUpSkillPanelController : MonoBehaviour
     {
         string valueLog = card.Value.HasValue ? card.Value.Value.ToString() : "(none)";
         Debug.Log($"Apply level-up effect => ID:{card.Id}, Effect:{card.Effect}, Value:{valueLog}");
+
+        if (string.Equals(card.Effect, "IncreaseAttack", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!card.Value.HasValue)
+            {
+                Debug.LogWarning("IncreaseAttack card selected without Value.");
+                return;
+            }
+
+            PlayerStatus playerStatus = ResolvePlayerStatus();
+            if (playerStatus == null)
+            {
+                Debug.LogWarning("PlayerStatus not found. IncreaseAttack could not be applied.");
+                return;
+            }
+
+            playerStatus.ApplyAttackUpCardPercent(card.Value.Value);
+            Debug.Log($"CurrentAttack updated => {playerStatus.CurrentAttack}");
+        }
+    }
+
+    private static PlayerStatus ResolvePlayerStatus()
+    {
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject == null)
+        {
+            return null;
+        }
+
+        if (playerObject.TryGetComponent<PlayerStatus>(out PlayerStatus playerStatus))
+        {
+            return playerStatus;
+        }
+
+        return playerObject.AddComponent<PlayerStatus>();
     }
 
     private Sprite LoadIconSprite(string iconName)

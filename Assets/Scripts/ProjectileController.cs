@@ -3,11 +3,12 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class ProjectileController : MonoBehaviour
+public class ProjectileController : MonoBehaviour, IPlayerAttackDamageSource
 {
     [SerializeField]
     [FormerlySerializedAs("damage")]
-    private float projectileDamage = 1f;
+    [FormerlySerializedAs("projectileDamage")]
+    private float damageMultiplier = 1f;
 
     [SerializeField]
     private float speed = 6f;
@@ -24,10 +25,13 @@ public class ProjectileController : MonoBehaviour
     [SerializeField]
     private string projectileLayerName = "projectile";
 
+    public float DamageMultiplier => damageMultiplier;
+
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Vector2 moveDirection = Vector2.right;
     private Transform baseRotationReference;
+    private PlayerStatus ownerStatus;
     private bool hasImpacted;
 
     public void Initialize(Vector2 direction, Transform rotationReference)
@@ -39,6 +43,11 @@ public class ProjectileController : MonoBehaviour
 
         baseRotationReference = rotationReference;
         ApplyOrientation();
+    }
+
+    public void SetOwnerStatus(PlayerStatus playerStatus)
+    {
+        ownerStatus = playerStatus;
     }
 
     private void Awake()
@@ -99,17 +108,24 @@ public class ProjectileController : MonoBehaviour
         }
 
         hasImpacted = true;
+        float calculatedDamage = CalculateDamage();
 
         if (target.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            damageable.TakeDamage(projectileDamage);
+            damageable.TakeDamage(calculatedDamage);
         }
         else
         {
-            target.SendMessage("TakeDamage", projectileDamage, SendMessageOptions.DontRequireReceiver);
+            target.SendMessage("TakeDamage", calculatedDamage, SendMessageOptions.DontRequireReceiver);
         }
 
         Destroy(gameObject);
+    }
+
+    private float CalculateDamage()
+    {
+        float currentAttack = ownerStatus != null ? ownerStatus.CurrentAttack : 0f;
+        return Mathf.Max(0f, currentAttack * Mathf.Max(0f, damageMultiplier));
     }
 
     private static bool IsLayerName(int layer, string expectedLayerName)
@@ -149,11 +165,16 @@ public class ProjectileController : MonoBehaviour
 
     private void OnValidate()
     {
-        projectileDamage = Mathf.Max(0f, projectileDamage);
+        damageMultiplier = Mathf.Max(0f, damageMultiplier);
         speed = Mathf.Max(0f, speed);
         lifetime = Mathf.Max(0f, lifetime);
         scale = Mathf.Max(0.01f, scale);
     }
+}
+
+public interface IPlayerAttackDamageSource
+{
+    float DamageMultiplier { get; }
 }
 
 public interface IDamageable
