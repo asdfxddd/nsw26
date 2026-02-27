@@ -2619,6 +2619,7 @@ GameObject:
   - component: {fileID: 1585865185}
   - component: {fileID: 1585865186}
   - component: {fileID: 1585865187}
+  - component: {fileID: 1585865188}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2881,6 +2882,25 @@ MonoBehaviour:
   currentMaxHP: 1
   currentHP: 0
   healOnDamagePercent: 0
+  projectileSplitCount: 0
+--- !u!114 &1585865188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585865177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9bf6d3d0b9e4de9ac4f2241a4479a2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ElectricController
+  orbitRadius: 1.5
+  orbitSpeed: 90
+  damageMultiplier: 0.5
+  electricPrefab: {fileID: 8617326654496237061, guid: bc12045c84b5af94fa8476d55b456754, type: 3}
+  contactDamageCooldown: 0.2
+  monsterLayerName: monster
 --- !u!1 &1635656938
 GameObject:
   m_ObjectHideFlags: 0

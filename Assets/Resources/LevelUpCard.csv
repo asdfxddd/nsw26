@@ -7,3 +7,5 @@
 6,8,2,SkillCard,투사체 속도 20% 증가,IncreaseProjectileSpeed,20
 7,6,4,SkillCard,치명타 확률 10% 증가,IncreaseCriticalChance,10
 8,5,5,SkillCard,체력 흡수 15% 증가,IncreaseLifeSteal,15
+9,100,,SkillElectric1,ww,Electric,3
+10,100,,,asdfasdf,Split,2
