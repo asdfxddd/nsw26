@@ -109,15 +109,7 @@ public class ProjectileController : MonoBehaviour, IPlayerAttackDamageSource
 
         hasImpacted = true;
         float calculatedDamage = CalculateDamage();
-
-        if (target.TryGetComponent<IDamageable>(out IDamageable damageable))
-        {
-            damageable.TakeDamage(calculatedDamage);
-        }
-        else
-        {
-            target.SendMessage("TakeDamage", calculatedDamage, SendMessageOptions.DontRequireReceiver);
-        }
+        DamageSystem.ApplyPlayerDamage(target, calculatedDamage);
 
         Destroy(gameObject);
     }
@@ -175,9 +167,4 @@ public class ProjectileController : MonoBehaviour, IPlayerAttackDamageSource
 public interface IPlayerAttackDamageSource
 {
     float DamageMultiplier { get; }
-}
-
-public interface IDamageable
-{
-    void TakeDamage(float amount);
 }
