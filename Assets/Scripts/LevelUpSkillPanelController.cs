@@ -250,6 +250,7 @@ public class LevelUpSkillPanelController : MonoBehaviour
                 if (icon != null)
                 {
                     view.IconImage.sprite = icon;
+                    view.IconImage.preserveAspect = true;
                     view.IconImage.enabled = true;
                 }
                 else
