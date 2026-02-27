@@ -360,6 +360,26 @@ public class LevelUpSkillPanelController : MonoBehaviour
 
             playerStatus.ApplyHealOnDamageCardPercent(card.Value.Value);
             Debug.Log($"HealOnDamagePercent updated => {playerStatus.HealOnDamagePercent}%");
+            return;
+        }
+
+        if (string.Equals(card.Effect, "Split", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!card.Value.HasValue)
+            {
+                Debug.LogWarning("Split card selected without Value.");
+                return;
+            }
+
+            PlayerStatus playerStatus = ResolvePlayerStatus();
+            if (playerStatus == null)
+            {
+                Debug.LogWarning("PlayerStatus not found. Split could not be applied.");
+                return;
+            }
+
+            playerStatus.SetProjectileSplitCount(card.Value.Value);
+            Debug.Log($"Projectile split count updated => {playerStatus.ProjectileSplitCount}");
         }
     }
 
