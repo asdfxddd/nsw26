@@ -317,6 +317,32 @@ public class LevelUpSkillPanelController : MonoBehaviour
             return;
         }
 
+        if (string.Equals(card.Effect, "Electric", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!card.Value.HasValue)
+            {
+                Debug.LogWarning("Electric card selected without Value.");
+                return;
+            }
+
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject == null)
+            {
+                Debug.LogWarning("Player not found. Electric could not be applied.");
+                return;
+            }
+
+            ElectricController electricController = playerObject.GetComponent<ElectricController>();
+            if (electricController == null)
+            {
+                electricController = playerObject.AddComponent<ElectricController>();
+            }
+
+            electricController.ActivateElectric(card.Value.Value);
+            Debug.Log($"Electric orbit activated => OrbCount:{card.Value.Value}");
+            return;
+        }
+
         if (string.Equals(card.Effect, "HealOnLevelUp", StringComparison.OrdinalIgnoreCase))
         {
             if (!card.Value.HasValue)
