@@ -36,6 +36,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (GameplayPauseState.IsGameplayPaused)
+        {
+            moveInput = Vector2.zero;
+            animator.SetBool(IsMoving, false);
+            return;
+        }
+
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         bool isMoving = moveInput.sqrMagnitude > 0f;
 

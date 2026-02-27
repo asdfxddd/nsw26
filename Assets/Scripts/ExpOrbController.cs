@@ -11,6 +11,11 @@ public class ExpOrbController : MonoBehaviour
 
     private void Update()
     {
+        if (GameplayPauseState.IsGameplayPaused)
+        {
+            return;
+        }
+
         ExpDropManager dropManager = ExpDropManager.Instance;
         if (!dropManager.TryGetPlayerPosition(out Vector3 playerPosition))
         {

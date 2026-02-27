@@ -75,6 +75,11 @@ public class ExpDropManager : MonoBehaviour
 
     public void AddExp(int amount)
     {
+        if (GameplayPauseState.IsGameplayPaused)
+        {
+            return;
+        }
+
         PlayerExperience.Instance.AddExp(amount);
     }
 
