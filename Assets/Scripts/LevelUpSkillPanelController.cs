@@ -288,6 +288,32 @@ public class LevelUpSkillPanelController : MonoBehaviour
 
             playerStatus.ApplyAttackUpCardPercent(card.Value.Value);
             Debug.Log($"CurrentAttack updated => {playerStatus.CurrentAttack}");
+            return;
+        }
+
+        if (string.Equals(card.Effect, "IncreaseMaxHealth", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!card.Value.HasValue)
+            {
+                Debug.LogWarning("IncreaseMaxHealth card selected without Value.");
+                return;
+            }
+
+            PlayerStatus playerStatus = ResolvePlayerStatus();
+            if (playerStatus == null)
+            {
+                Debug.LogWarning("PlayerStatus not found. IncreaseMaxHealth could not be applied.");
+                return;
+            }
+
+            playerStatus.ApplyMaxHealthUpCardPercent(card.Value.Value);
+
+            if (playerStatus.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
+            {
+                playerHealth.SyncFromStatus();
+            }
+
+            Debug.Log($"CurrentMaxHP updated => {playerStatus.CurrentMaxHP}, CurrentHP => {playerStatus.CurrentHP}");
         }
     }
 
