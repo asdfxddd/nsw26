@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class LevelUpSkillPanelController : MonoBehaviour
 {
@@ -275,14 +278,87 @@ public class LevelUpSkillPanelController : MonoBehaviour
             return null;
         }
 
-        Sprite icon = Resources.Load<Sprite>(iconName);
+        string trimmedIconName = iconName.Trim();
+        string normalizedIconName = NormalizeIconName(trimmedIconName);
+
+        Sprite icon = Resources.Load<Sprite>(trimmedIconName);
         if (icon != null)
         {
             return icon;
         }
 
-        return Resources.Load<Sprite>($"Sprites/{iconName}");
+        icon = Resources.Load<Sprite>($"Sprites/{trimmedIconName}");
+        if (icon != null)
+        {
+            return icon;
+        }
+
+        Sprite[] resourcesSprites = Resources.LoadAll<Sprite>("Sprites");
+        for (int i = 0; i < resourcesSprites.Length; i++)
+        {
+            Sprite candidate = resourcesSprites[i];
+            if (candidate == null)
+            {
+                continue;
+            }
+
+            if (NormalizeIconName(candidate.name) == normalizedIconName)
+            {
+                return candidate;
+            }
+        }
+
+#if UNITY_EDITOR
+        icon = LoadSpriteFromAssetsFolder(trimmedIconName, normalizedIconName);
+        if (icon != null)
+        {
+            return icon;
+        }
+#endif
+
+        return null;
     }
+
+    private static string NormalizeIconName(string iconName)
+    {
+        return iconName.Replace("_", string.Empty).Replace("-", string.Empty).ToLowerInvariant();
+    }
+
+#if UNITY_EDITOR
+    private static Sprite LoadSpriteFromAssetsFolder(string iconName, string normalizedIconName)
+    {
+        string[] searchRoots = { "Assets/Sprites" };
+
+        string[] exactGuids = AssetDatabase.FindAssets($"{iconName} t:Sprite", searchRoots);
+        for (int i = 0; i < exactGuids.Length; i++)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(exactGuids[i]);
+            Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            if (sprite != null)
+            {
+                return sprite;
+            }
+        }
+
+        string[] allGuids = AssetDatabase.FindAssets("t:Sprite", searchRoots);
+        for (int i = 0; i < allGuids.Length; i++)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(allGuids[i]);
+            Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            if (sprite == null)
+            {
+                continue;
+            }
+
+            if (NormalizeIconName(sprite.name) == normalizedIconName)
+            {
+                return sprite;
+            }
+        }
+
+        return null;
+    }
+#endif
 
     private void SetPanelVisible(bool visible)
     {
