@@ -31,18 +31,21 @@ public class MonsterController : MonoBehaviour, IDamageable
         currentHP = maxHP;
     }
 
-    public void TakeDamage(float amount)
+    public float TakeDamage(float amount)
     {
         if (GameplayPauseState.IsGameplayPaused || amount <= 0f || currentHP <= 0f)
         {
-            return;
+            return 0f;
         }
 
-        currentHP = Mathf.Max(0f, currentHP - amount);
+        float appliedDamage = Mathf.Min(currentHP, amount);
+        currentHP = Mathf.Max(0f, currentHP - appliedDamage);
         if (currentHP <= 0f)
         {
             Die();
         }
+
+        return appliedDamage;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

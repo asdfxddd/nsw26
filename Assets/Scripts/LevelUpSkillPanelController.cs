@@ -314,6 +314,57 @@ public class LevelUpSkillPanelController : MonoBehaviour
             }
 
             Debug.Log($"CurrentMaxHP updated => {playerStatus.CurrentMaxHP}, CurrentHP => {playerStatus.CurrentHP}");
+            return;
+        }
+
+        if (string.Equals(card.Effect, "IncreaseLifeSteal", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!card.Value.HasValue)
+            {
+                Debug.LogWarning("IncreaseLifeSteal card selected without Value.");
+                return;
+            }
+
+            PlayerStatus playerStatus = ResolvePlayerStatus();
+            if (playerStatus == null)
+            {
+                Debug.LogWarning("PlayerStatus not found. IncreaseLifeSteal could not be applied.");
+                return;
+            }
+
+            playerStatus.ApplyHealOnDamageCardPercent(card.Value.Value);
+            Debug.Log($"HealOnDamagePercent updated => {playerStatus.HealOnDamagePercent}%");
+            return;
+        }
+
+        if (string.Equals(card.Effect, "HealOnLevelUp", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!card.Value.HasValue)
+            {
+                Debug.LogWarning("HealOnLevelUp card selected without Value.");
+                return;
+            }
+
+            PlayerStatus playerStatus = ResolvePlayerStatus();
+            if (playerStatus == null)
+            {
+                Debug.LogWarning("PlayerStatus not found. HealOnLevelUp could not be applied.");
+                return;
+            }
+
+            float healRatio = Mathf.Max(0f, card.Value.Value) / 100f;
+            float healAmount = playerStatus.CurrentMaxHP * healRatio;
+
+            if (playerStatus.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
+            {
+                playerHealth.Heal(healAmount);
+            }
+            else
+            {
+                playerStatus.TryHeal(healAmount);
+            }
+
+            Debug.Log($"HealOnLevelUp applied => HealAmount:{healAmount}, CurrentHP:{playerStatus.CurrentHP}/{playerStatus.CurrentMaxHP}");
         }
     }
 
