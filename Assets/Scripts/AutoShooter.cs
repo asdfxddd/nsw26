@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerStatus))]
 public class AutoShooter : MonoBehaviour
 {
     [SerializeField]
@@ -20,6 +21,12 @@ public class AutoShooter : MonoBehaviour
     private Vector2 lastAimDirection = Vector2.right;
     private float nextFireTime;
     private float nextTurnReadyTime;
+    private PlayerStatus playerStatus;
+
+    private void Awake()
+    {
+        playerStatus = GetComponent<PlayerStatus>();
+    }
 
     private void Update()
     {
@@ -63,6 +70,7 @@ public class AutoShooter : MonoBehaviour
         Transform spawnTransform = spawnPoint != null ? spawnPoint : transform;
         ProjectileController projectile = Instantiate(projectilePrefab, spawnTransform.position, Quaternion.identity);
         projectile.Initialize(lastAimDirection, baseRotationReference);
+        projectile.SetOwnerStatus(playerStatus);
 
         nextFireTime = Time.time + fireInterval;
     }
