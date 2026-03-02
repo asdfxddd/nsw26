@@ -83,7 +83,7 @@ public class FlameProjectile : MonoBehaviour
             return;
         }
 
-        Vector3 delta = (Vector3)(knockbackDirection.normalized * ownerController.KnockbackDistance);
+        Vector3 delta = (Vector3)(-knockbackDirection.normalized * ownerController.KnockbackDistance);
         target.transform.position += delta;
     }
 
