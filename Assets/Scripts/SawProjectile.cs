@@ -87,7 +87,7 @@ public class SawProjectile : MonoBehaviour
 
     private void ApplyCornerBounceSpeedCorrection(bool bouncedX, bool bouncedY)
     {
-        if (owner == null)
+        if (owner == null || speed <= 0f)
         {
             return;
         }
@@ -97,25 +97,32 @@ public class SawProjectile : MonoBehaviour
 
         if (bouncedX)
         {
-            float requiredX = Mathf.Abs(playerVelocity.x);
+            float requiredX = Mathf.Min(Mathf.Abs(playerVelocity.x), speed);
             if (Mathf.Abs(velocity.x) < requiredX)
             {
-                velocity.x = Mathf.Sign(moveDirection.x) * requiredX;
+                float signX = Mathf.Sign(moveDirection.x);
+                float signY = Mathf.Sign(moveDirection.y);
+                float targetX = requiredX;
+                float targetY = Mathf.Sqrt(Mathf.Max(0f, (speed * speed) - (targetX * targetX)));
+                velocity = new Vector2(signX * targetX, signY * targetY);
             }
         }
 
         if (bouncedY)
         {
-            float requiredY = Mathf.Abs(playerVelocity.y);
+            float requiredY = Mathf.Min(Mathf.Abs(playerVelocity.y), speed);
             if (Mathf.Abs(velocity.y) < requiredY)
             {
-                velocity.y = Mathf.Sign(moveDirection.y) * requiredY;
+                float signX = Mathf.Sign(moveDirection.x);
+                float signY = Mathf.Sign(moveDirection.y);
+                float targetY = requiredY;
+                float targetX = Mathf.Sqrt(Mathf.Max(0f, (speed * speed) - (targetY * targetY)));
+                velocity = new Vector2(signX * targetX, signY * targetY);
             }
         }
 
         if (velocity.sqrMagnitude > 0.0001f)
         {
-            speed = velocity.magnitude;
             moveDirection = velocity.normalized;
         }
     }
