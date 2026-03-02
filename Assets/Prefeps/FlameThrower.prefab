@@ -202,5 +202,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2a257ce29646d6b7e07ae4dad61c8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlameProjectile
-  monsterLayerName: monster
+  monsterLayerName: Monster
   hitCooldown: 0.5

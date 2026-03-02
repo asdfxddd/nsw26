@@ -11,4 +11,5 @@
 10,100,,,asdfasdf,Split,2
 11,60,,ExplosionEffect,werwer,EXPLOSION,100
 12,60,,FlameThrower,asdfsadfwerwar,FIRETHROWER,500
-13,60,,Projectile,miss,MISSILE,4
+13,60,,Projectile,missile,MISSILE,4
+14,60,,SkillSaw,saw,SAW,100

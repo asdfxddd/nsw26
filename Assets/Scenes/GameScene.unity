@@ -2623,6 +2623,7 @@ GameObject:
   - component: {fileID: 1585865189}
   - component: {fileID: 1585865190}
   - component: {fileID: 1585865191}
+  - component: {fileID: 1585865192}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2937,10 +2938,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlameController
   flamePrefab: {fileID: 7155534438127414737, guid: 228fe324c3cfc1f439c84cb630c1be4d, type: 3}
-  damageMultiplier: 0.1
-  knockbackDistance: 1
-  coolTime: 1
-  forwardOffset: 0.75
+  damageMultiplier: 5
+  knockbackDistance: 0
+  coolTime: 0.5
+  forwardOffset: 0.5
 --- !u!114 &1585865191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2958,6 +2959,23 @@ MonoBehaviour:
   coolTime: 1.5
   speed: 8
   spawnRadius: 0.35
+--- !u!114 &1585865192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585865177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6516d5a6747440bcb6ae8f3e0ae9c7cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SawController
+  lifeTime: 5
+  cooldown: 1
+  speed: 6
+  damageMultiplier: 100
+  projectilePrefab: {fileID: 2399610882636101918, guid: e23391bfefd6d1c49b9cbce08748695a, type: 3}
 --- !u!1 &1635656938
 GameObject:
   m_ObjectHideFlags: 0
