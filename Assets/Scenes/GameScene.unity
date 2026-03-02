@@ -2620,6 +2620,8 @@ GameObject:
   - component: {fileID: 1585865186}
   - component: {fileID: 1585865187}
   - component: {fileID: 1585865188}
+  - component: {fileID: 1585865189}
+  - component: {fileID: 1585865190}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2901,6 +2903,43 @@ MonoBehaviour:
   electricPrefab: {fileID: 8617326654496237061, guid: bc12045c84b5af94fa8476d55b456754, type: 3}
   contactDamageCooldown: 0.2
   monsterLayerName: monster
+--- !u!114 &1585865189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585865177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23788d5ce7248a8a83967fda4b1b1c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExplosionController
+  explosionRadius: 2
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  damageMultiplier: 0.5
+  chainPrevention: 0
+  effectPrefab: {fileID: 6816360172311350593, guid: 2a9a5fdadb7d709469de6889dd4f204d, type: 3}
+  triggerChancePercent: 0
+--- !u!114 &1585865190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585865177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28cb4a3be34e42368ad32a260e5eb3cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlameController
+  flamePrefab: {fileID: 7155534438127414737, guid: 228fe324c3cfc1f439c84cb630c1be4d, type: 3}
+  damageMultiplier: 1
+  knockbackDistance: 1
+  coolTime: 1
+  forwardOffset: 0.75
 --- !u!1 &1635656938
 GameObject:
   m_ObjectHideFlags: 0
