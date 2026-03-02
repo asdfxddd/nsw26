@@ -343,6 +343,33 @@ public class LevelUpSkillPanelController : MonoBehaviour
             return;
         }
 
+        if (string.Equals(card.Effect, "FIRETHROWER", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!card.Value.HasValue)
+            {
+                Debug.LogWarning("FIRETHROWER card selected without Value(duration ms).");
+                return;
+            }
+
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject == null)
+            {
+                Debug.LogWarning("Player not found. FIRETHROWER could not be applied.");
+                return;
+            }
+
+            FlameController flameController = playerObject.GetComponent<FlameController>();
+            if (flameController == null)
+            {
+                flameController = playerObject.AddComponent<FlameController>();
+            }
+
+            flameController.enabled = true;
+            flameController.ActivateFlameThrower(card.Value.Value);
+            Debug.Log($"FIRETHROWER activated => DurationMs:{card.Value.Value}");
+            return;
+        }
+
         if (string.Equals(card.Effect, "HealOnLevelUp", StringComparison.OrdinalIgnoreCase))
         {
             if (!card.Value.HasValue)
