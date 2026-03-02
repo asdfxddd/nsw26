@@ -380,6 +380,32 @@ public class LevelUpSkillPanelController : MonoBehaviour
 
             playerStatus.SetProjectileSplitCount(card.Value.Value);
             Debug.Log($"Projectile split count updated => {playerStatus.ProjectileSplitCount}");
+            return;
+        }
+
+        if (string.Equals(card.Effect, "MISSILE", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!card.Value.HasValue)
+            {
+                Debug.LogWarning("MISSILE card selected without Value.");
+                return;
+            }
+
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject == null)
+            {
+                Debug.LogWarning("Player not found. MISSILE could not be applied.");
+                return;
+            }
+
+            MissileController missileController = playerObject.GetComponent<MissileController>();
+            if (missileController == null)
+            {
+                missileController = playerObject.AddComponent<MissileController>();
+            }
+
+            missileController.Activate(card.Value.Value);
+            Debug.Log($"MISSILE activated => MissileCount:{card.Value.Value}");
         }
     }
 
