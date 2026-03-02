@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -30,6 +31,17 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField, Tooltip("Split 카드로 설정되는 최대 분할 횟수")]
     private int projectileSplitCount;
 
+    [SerializeField, Tooltip("기본 아이템 흡수 반경")]
+    private float basePickupRadius = 2.5f;
+
+    [SerializeField, Tooltip("MAGNET 카드 누적 배율. 1 = 100%")]
+    private float pickupRadiusMultiplier = 1f;
+
+    [SerializeField, Tooltip("자석으로 끌려오는 아이템의 이동 속도")]
+    private float pickupMoveSpeed = 10f;
+
+    public event Action<float> OnPickupRadiusChanged;
+
     public float BaseAttack => baseAttack;
 
     public float BaseMaxHP => baseMaxHP;
@@ -57,9 +69,27 @@ public class PlayerStatus : MonoBehaviour
 
     public int ProjectileSplitCount => Mathf.Max(0, projectileSplitCount);
 
+    public float BasePickupRadius => basePickupRadius;
+
+    public float PickupRadiusMultiplier => pickupRadiusMultiplier;
+
+    public float CurrentPickupRadius => Mathf.Max(0.01f, basePickupRadius) * Mathf.Max(0.01f, pickupRadiusMultiplier);
+
+    public float PickupMoveSpeed => Mathf.Max(0.01f, pickupMoveSpeed);
+
     private void Awake()
     {
         InitializeHealthForBattle();
+
+        if (!TryGetComponent<PlayerMagnetCollector>(out _))
+        {
+            gameObject.AddComponent<PlayerMagnetCollector>();
+        }
+    }
+
+    private void Start()
+    {
+        NotifyPickupRadiusChanged();
     }
 
     public void InitializeHealthForBattle()
@@ -140,8 +170,6 @@ public class PlayerStatus : MonoBehaviour
             return;
         }
 
-        // 카드 Value 규칙: 125 = 1.25배(+25%).
-        // 하위 호환: 10 같은 값은 +10%로 간주.
         float bonusPercent = cardPercent >= 100f ? cardPercent - 100f : cardPercent;
         attackUpBonusPercent += Mathf.Max(0f, bonusPercent);
     }
@@ -166,6 +194,23 @@ public class PlayerStatus : MonoBehaviour
         healOnDamagePercent += cardPercent;
     }
 
+    public void ApplyPickupRadiusCardPercent(float cardPercent)
+    {
+        if (cardPercent <= 0f)
+        {
+            return;
+        }
+
+        float cardMultiplier = cardPercent / 100f;
+        if (cardMultiplier <= 0f)
+        {
+            return;
+        }
+
+        pickupRadiusMultiplier *= cardMultiplier;
+        NotifyPickupRadiusChanged();
+    }
+
     public float CalculateHealFromDamage(float appliedDamage)
     {
         if (appliedDamage <= 0f || healOnDamagePercent <= 0f)
@@ -181,6 +226,11 @@ public class PlayerStatus : MonoBehaviour
         projectileSplitCount = Mathf.Max(0, maxSplitCount);
     }
 
+    private void NotifyPickupRadiusChanged()
+    {
+        OnPickupRadiusChanged?.Invoke(CurrentPickupRadius);
+    }
+
     private void OnValidate()
     {
         baseAttack = Mathf.Max(0f, baseAttack);
@@ -192,5 +242,10 @@ public class PlayerStatus : MonoBehaviour
         currentHP = Mathf.Clamp(currentHP, 0f, currentMaxHP);
         healOnDamagePercent = Mathf.Max(0f, healOnDamagePercent);
         projectileSplitCount = Mathf.Max(0, projectileSplitCount);
+        basePickupRadius = Mathf.Max(0.01f, basePickupRadius);
+        pickupRadiusMultiplier = Mathf.Max(0.01f, pickupRadiusMultiplier);
+        pickupMoveSpeed = Mathf.Max(0.01f, pickupMoveSpeed);
+
+        NotifyPickupRadiusChanged();
     }
 }

@@ -437,6 +437,32 @@ public class LevelUpSkillPanelController : MonoBehaviour
         }
 
 
+
+        if (string.Equals(card.Effect, "MAGNET", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!card.Value.HasValue)
+            {
+                Debug.LogWarning("MAGNET card selected without Value(multiplier%).");
+                return;
+            }
+
+            PlayerStatus playerStatus = ResolvePlayerStatus();
+            if (playerStatus == null)
+            {
+                Debug.LogWarning("PlayerStatus not found. MAGNET could not be applied.");
+                return;
+            }
+
+            if (!playerStatus.TryGetComponent<PlayerMagnetCollector>(out _))
+            {
+                playerStatus.gameObject.AddComponent<PlayerMagnetCollector>();
+            }
+
+            playerStatus.ApplyPickupRadiusCardPercent(card.Value.Value);
+            Debug.Log($"Pickup radius updated => {playerStatus.CurrentPickupRadius}");
+            return;
+        }
+
         if (string.Equals(card.Effect, "SAW", StringComparison.OrdinalIgnoreCase))
         {
             if (!card.Value.HasValue)
