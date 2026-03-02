@@ -24,6 +24,8 @@ public class MonsterController : MonoBehaviour, IDamageable
 
     private float currentHP;
 
+    public bool IsDead => currentHP <= 0f;
+
     private void Awake()
     {
         maxHP = Mathf.Max(1f, maxHP);

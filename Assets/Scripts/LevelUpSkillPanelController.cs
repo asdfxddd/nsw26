@@ -343,6 +343,32 @@ public class LevelUpSkillPanelController : MonoBehaviour
             return;
         }
 
+        if (string.Equals(card.Effect, "EXPLOSION", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!card.Value.HasValue)
+            {
+                Debug.LogWarning("EXPLOSION card selected without Value(chance%).");
+                return;
+            }
+
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject == null)
+            {
+                Debug.LogWarning("Player not found. EXPLOSION could not be applied.");
+                return;
+            }
+
+            ExplosionController explosionController = playerObject.GetComponent<ExplosionController>();
+            if (explosionController == null)
+            {
+                explosionController = playerObject.AddComponent<ExplosionController>();
+            }
+
+            explosionController.ActivateExplosion(card.Value.Value);
+            Debug.Log($"EXPLOSION activated => Chance:{card.Value.Value}%");
+            return;
+        }
+
         if (string.Equals(card.Effect, "FIRETHROWER", StringComparison.OrdinalIgnoreCase))
         {
             if (!card.Value.HasValue)
