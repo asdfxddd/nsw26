@@ -10,4 +10,5 @@
 9,100,,SkillElectric1,ww,Electric,3
 10,100,,,asdfasdf,Split,2
 11,60,,ExplosionEffect,werwer,EXPLOSION,100
-12,60,,FlameThrower,asdfsadfwerwar,FLAMETHROWER,500
+12,60,,FlameThrower,asdfsadfwerwar,FIRETHROWER,500
+13,60,,Projectile,miss,MISSILE,4

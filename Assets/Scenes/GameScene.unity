@@ -2622,6 +2622,7 @@ GameObject:
   - component: {fileID: 1585865188}
   - component: {fileID: 1585865189}
   - component: {fileID: 1585865190}
+  - component: {fileID: 1585865191}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2936,10 +2937,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlameController
   flamePrefab: {fileID: 7155534438127414737, guid: 228fe324c3cfc1f439c84cb630c1be4d, type: 3}
-  damageMultiplier: 1
+  damageMultiplier: 0.1
   knockbackDistance: 1
   coolTime: 1
   forwardOffset: 0.75
+--- !u!114 &1585865191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585865177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e7366467bb04630b48140e18907293d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MissileController
+  missilePrefab: {fileID: 4559914378167498874, guid: bd071f9fdf8043748b1ed59704ee7d8a, type: 3}
+  damageMultiplier: 100
+  coolTime: 1.5
+  speed: 8
+  spawnRadius: 0.35
 --- !u!1 &1635656938
 GameObject:
   m_ObjectHideFlags: 0
