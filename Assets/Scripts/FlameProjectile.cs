@@ -26,7 +26,7 @@ public class FlameProjectile : MonoBehaviour
         Vector2 facing = facingDirection.sqrMagnitude > 0f ? facingDirection.normalized : Vector2.right;
         transform.localPosition = facing * forwardOffset;
 
-        float angle = Mathf.Atan2(facing.y, facing.x) * Mathf.Rad2Deg;
+        float angle = (Mathf.Atan2(facing.y, facing.x) * Mathf.Rad2Deg) - 90f;
         transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
