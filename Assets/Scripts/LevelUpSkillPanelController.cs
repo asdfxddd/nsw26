@@ -436,6 +436,33 @@ public class LevelUpSkillPanelController : MonoBehaviour
             return;
         }
 
+
+        if (string.Equals(card.Effect, "SAW", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!card.Value.HasValue)
+            {
+                Debug.LogWarning("SAW card selected without Value(speed%).");
+                return;
+            }
+
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject == null)
+            {
+                Debug.LogWarning("Player not found. SAW could not be applied.");
+                return;
+            }
+
+            SawController sawController = playerObject.GetComponent<SawController>();
+            if (sawController == null)
+            {
+                sawController = playerObject.AddComponent<SawController>();
+            }
+
+            sawController.Activate(card.Value.Value);
+            Debug.Log($"SAW activated => SpeedScale:{card.Value.Value}%");
+            return;
+        }
+
         if (string.Equals(card.Effect, "MISSILE", StringComparison.OrdinalIgnoreCase))
         {
             if (!card.Value.HasValue)
