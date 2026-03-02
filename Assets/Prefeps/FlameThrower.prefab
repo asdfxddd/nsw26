@@ -203,4 +203,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlameProjectile
   monsterLayerName: Monster
-  hitCooldown: 0.5
+  hitCooldown: 0.4

@@ -2887,6 +2887,9 @@ MonoBehaviour:
   currentHP: 0
   healOnDamagePercent: 0
   projectileSplitCount: 0
+  basePickupRadius: 2.5
+  pickupRadiusMultiplier: 1
+  pickupMoveSpeed: 10
 --- !u!114 &1585865188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2938,8 +2941,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlameController
   flamePrefab: {fileID: 7155534438127414737, guid: 228fe324c3cfc1f439c84cb630c1be4d, type: 3}
-  damageMultiplier: 5
-  knockbackDistance: 0
+  damageMultiplier: 0.1
+  knockbackDistance: 1
   coolTime: 0.5
   forwardOffset: 0.5
 --- !u!114 &1585865191

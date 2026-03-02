@@ -1,15 +1,15 @@
 ﻿ID,Ratio,Required,Icon,Desc,Effect,Value
 1,30,,SkillAtkUP,공격력 10% 증가,IncreaseAttack,110
-2,25,,SkillElectric1,이동 속도 10% 증가,IncreaseMoveSpeed,10
+2,25,,SkillMagUP,아이템 획득 범위 증가,MAGNET,150
 3,20,,SkillHPUP,최대 체력 150% 증가,IncreaseMaxHealth,150
 4,15,1,SkillAtkUP,공격력 20% 증가,IncreaseAttack,120
 5,10,3,SkillHPUP,체력 30 회복,HealOnLevelUp,30
 6,8,2,SkillCard,투사체 속도 20% 증가,IncreaseProjectileSpeed,20
 7,6,4,SkillCard,치명타 확률 10% 증가,IncreaseCriticalChance,10
 8,5,5,SkillCard,체력 흡수 15% 증가,IncreaseLifeSteal,15
-9,100,,SkillElectric1,ww,Electric,3
-10,100,,,asdfasdf,Split,2
-11,60,,ExplosionEffect,werwer,EXPLOSION,100
+9,100,,SkillElectric1,elec,Electric,3
+10,100,,SkillCard,split,Split,2
+11,60,,ExplosionEffect,expl,EXPLOSION,100
 12,60,,FlameThrower,asdfsadfwerwar,FIRETHROWER,500
 13,60,,Projectile,missile,MISSILE,4
 14,60,,SkillSaw,saw,SAW,100
