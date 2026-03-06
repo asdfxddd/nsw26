@@ -13,8 +13,8 @@ public class SawController : MonoBehaviour
     [SerializeField]
     private float speed = 6f;
 
-    [SerializeField, Tooltip("100 = 100%, 150 = 150%")]
-    private float damageMultiplier = 100f;
+    [SerializeField, Tooltip("1 = 100%, 1.5 = 150%")]
+    private float damageMultiplier = 1f;
 
     [SerializeField]
     private GameObject projectilePrefab;
@@ -96,7 +96,7 @@ public class SawController : MonoBehaviour
     public float CalculateDamage()
     {
         float attack = ownerStatus != null ? ownerStatus.CurrentAttack : 0f;
-        return Mathf.Max(0f, attack * Mathf.Max(0f, damageMultiplier) * 0.01f);
+        return Mathf.Max(0f, attack * Mathf.Max(0f, damageMultiplier));
     }
 
     private void SpawnSaw()

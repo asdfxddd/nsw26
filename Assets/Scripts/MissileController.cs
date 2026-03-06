@@ -8,8 +8,8 @@ public class MissileController : MonoBehaviour
     [SerializeField]
     private MissileProjectileController missilePrefab;
 
-    [SerializeField, Tooltip("100 = 100%, 150 = 150%")]
-    private float damageMultiplier = 100f;
+    [SerializeField, Tooltip("1 = 100%, 1.5 = 150%")]
+    private float damageMultiplier = 1f;
 
     [SerializeField, Tooltip("Missile fire interval in seconds")]
     private float coolTime = 1.5f;
@@ -68,7 +68,7 @@ public class MissileController : MonoBehaviour
 
             MissileProjectileController missile = Instantiate(missilePrefab, spawnPosition, Quaternion.identity);
             Transform assignedTarget = i < reusableTargets.Count ? reusableTargets[i] : null;
-            missile.Initialize(ownerStatus, assignedTarget, speed, Mathf.Max(0f, damageMultiplier) / 100f);
+            missile.Initialize(ownerStatus, assignedTarget, speed, Mathf.Max(0f, damageMultiplier));
         }
     }
 
