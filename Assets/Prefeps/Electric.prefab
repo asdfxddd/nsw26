@@ -194,7 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ElectricController
   orbitRadius: 1.5
   orbitSpeed: 90
-  damageMultiplier: 1
+  damageMultiplier: 0.5
   electricPrefab: {fileID: 8617326654496237061}
   contactDamageCooldown: 0.2
   monsterLayerName: monster

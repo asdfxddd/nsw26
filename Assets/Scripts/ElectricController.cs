@@ -10,7 +10,7 @@ public class ElectricController : MonoBehaviour
     [SerializeField, Tooltip("초당 회전 각도(도)")]
     private float orbitSpeed = 90f;
 
-    [SerializeField, Tooltip("PlayerStatus.CurrentAttack에 곱해지는 배율")]
+    [SerializeField, Tooltip("데미지 배율(1 = 100%, 0.5 = 50%)")]
     private float damageMultiplier = 0.5f;
 
     [SerializeField]

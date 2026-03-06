@@ -10,7 +10,7 @@ public class ExplosionController : MonoBehaviour
     [SerializeField]
     private LayerMask targetLayer;
 
-    [SerializeField, Min(0f)]
+    [SerializeField, Min(0f), Tooltip("데미지 배율(1 = 100%, 0.5 = 50%)")]
     private float damageMultiplier = 0.5f;
 
     [SerializeField, Tooltip("꺼짐(false): 폭발로 사망한 몬스터는 추가 폭발을 일으키지 않음")]

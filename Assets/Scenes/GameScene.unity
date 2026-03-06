@@ -2901,7 +2901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ElectricController
   orbitRadius: 1.5
   orbitSpeed: 90
-  damageMultiplier: 1
+  damageMultiplier: 0.5
   electricPrefab: {fileID: 8617326654496237061, guid: bc12045c84b5af94fa8476d55b456754, type: 3}
   contactDamageCooldown: 0.2
   monsterLayerName: monster
@@ -2921,7 +2921,7 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
-  damageMultiplier: 1
+  damageMultiplier: 0.5
   chainPrevention: 0
   effectPrefab: {fileID: 6816360172311350593, guid: 2a9a5fdadb7d709469de6889dd4f204d, type: 3}
   triggerChancePercent: 0
@@ -2938,7 +2938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlameController
   flamePrefab: {fileID: 7155534438127414737, guid: 228fe324c3cfc1f439c84cb630c1be4d, type: 3}
-  damageMultiplier: 1
+  damageMultiplier: 5
   knockbackDistance: 0
   coolTime: 0.5
   forwardOffset: 0.5
