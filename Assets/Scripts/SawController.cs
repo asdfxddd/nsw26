@@ -96,20 +96,7 @@ public class SawController : MonoBehaviour
     public float CalculateDamage()
     {
         float attack = ownerStatus != null ? ownerStatus.CurrentAttack : 0f;
-        return Mathf.Max(0f, attack * GetNormalizedDamageMultiplier());
-    }
-
-    private float GetNormalizedDamageMultiplier()
-    {
-        float normalized = Mathf.Max(0f, damageMultiplier);
-
-        // Backward compatibility: old data used 100-based percentages (100 = 100%).
-        if (normalized > 10f)
-        {
-            normalized *= 0.01f;
-        }
-
-        return normalized;
+        return Mathf.Max(0f, attack * Mathf.Max(0f, damageMultiplier));
     }
 
     private void SpawnSaw()
@@ -157,6 +144,6 @@ public class SawController : MonoBehaviour
         lifeTime = Mathf.Max(0.05f, lifeTime);
         cooldown = Mathf.Max(0.01f, cooldown);
         speed = Mathf.Max(0f, speed);
-        damageMultiplier = GetNormalizedDamageMultiplier();
+        damageMultiplier = Mathf.Max(0f, damageMultiplier);
     }
 }

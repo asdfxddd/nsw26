@@ -68,21 +68,8 @@ public class MissileController : MonoBehaviour
 
             MissileProjectileController missile = Instantiate(missilePrefab, spawnPosition, Quaternion.identity);
             Transform assignedTarget = i < reusableTargets.Count ? reusableTargets[i] : null;
-            missile.Initialize(ownerStatus, assignedTarget, speed, GetNormalizedDamageMultiplier());
+            missile.Initialize(ownerStatus, assignedTarget, speed, Mathf.Max(0f, damageMultiplier));
         }
-    }
-
-    private float GetNormalizedDamageMultiplier()
-    {
-        float normalized = Mathf.Max(0f, damageMultiplier);
-
-        // Backward compatibility: old data used 100-based percentages (100 = 100%).
-        if (normalized > 10f)
-        {
-            normalized *= 0.01f;
-        }
-
-        return normalized;
     }
 
     private void FillTargets(int requiredCount)
@@ -134,7 +121,7 @@ public class MissileController : MonoBehaviour
 
     private void OnValidate()
     {
-        damageMultiplier = GetNormalizedDamageMultiplier();
+        damageMultiplier = Mathf.Max(0f, damageMultiplier);
         coolTime = Mathf.Max(0.01f, coolTime);
         speed = Mathf.Max(0f, speed);
         spawnRadius = Mathf.Max(0f, spawnRadius);
