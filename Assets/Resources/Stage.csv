@@ -1,2 +1,2 @@
-﻿StageId,SceneName,StageName
-1,GameScene,Main Stage
+StageId,SceneName,StageName,Time
+1,GameScene,Main Stage,300
