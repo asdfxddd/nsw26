@@ -40,6 +40,9 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField, Tooltip("자석으로 끌려오는 아이템의 이동 속도")]
     private float pickupMoveSpeed = 10f;
 
+    [SerializeField, Tooltip("플레이어가 현재 보유한 코인 수")]
+    private int currentCoins;
+
     public event Action<float> OnPickupRadiusChanged;
 
     public float BaseAttack => baseAttack;
@@ -76,6 +79,8 @@ public class PlayerStatus : MonoBehaviour
     public float CurrentPickupRadius => Mathf.Max(0.01f, basePickupRadius) * Mathf.Max(0.01f, pickupRadiusMultiplier);
 
     public float PickupMoveSpeed => Mathf.Max(0.01f, pickupMoveSpeed);
+
+    public int CurrentCoins => Mathf.Max(0, currentCoins);
 
     private void Awake()
     {
@@ -219,6 +224,16 @@ public class PlayerStatus : MonoBehaviour
         }
 
         return appliedDamage * (healOnDamagePercent / 100f);
+    }
+
+    public void AddCoins(int amount)
+    {
+        if (amount <= 0)
+        {
+            return;
+        }
+
+        currentCoins = Mathf.Max(0, currentCoins + amount);
     }
 
     public void SetProjectileSplitCount(int maxSplitCount)
