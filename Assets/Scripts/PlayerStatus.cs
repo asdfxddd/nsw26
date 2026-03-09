@@ -85,6 +85,11 @@ public class PlayerStatus : MonoBehaviour
         {
             gameObject.AddComponent<PlayerMagnetCollector>();
         }
+
+        if (!TryGetComponent<MagnetBoostController>(out _))
+        {
+            gameObject.AddComponent<MagnetBoostController>();
+        }
     }
 
     private void Start()
