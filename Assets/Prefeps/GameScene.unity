@@ -2453,6 +2453,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1151679279}
   m_CullTransparentMesh: 1
+--- !u!1 &1417548180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1417548182}
+  - component: {fileID: 1417548181}
+  m_Layer: 0
+  m_Name: TreasureBoxSpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1417548181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417548180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe175baf01c47c693eb2238fa9d0289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreasureBoxSpawnManager
+  treasureBoxPrefab: {fileID: 4901713288892568112, guid: a00f87b6f072d8348b71f4872b325378, type: 3}
+  spawnCooldown: 8
+  initialDelay: 3
+  maxActiveBoxes: 3
+  player: {fileID: 0}
+  spawnCamera: {fileID: 0}
+  mapBoundary: {fileID: 0}
+  spawnRadiusBuffer: 1.5
+  spawnRadiusThickness: 2
+  spawnPositionTryCount: 12
+--- !u!4 &1417548182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417548180}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.69872, y: -1.15138, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1478203827
 GameObject:
   m_ObjectHideFlags: 0
@@ -2958,7 +3012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MissileController
   missilePrefab: {fileID: 4559914378167498874, guid: bd071f9fdf8043748b1ed59704ee7d8a, type: 3}
-  damageMultiplier: 100
+  damageMultiplier: 1
   coolTime: 1.5
   speed: 8
   spawnRadius: 0.35
@@ -2977,7 +3031,7 @@ MonoBehaviour:
   lifeTime: 5
   cooldown: 1
   speed: 6
-  damageMultiplier: 100
+  damageMultiplier: 1
   projectilePrefab: {fileID: 2399610882636101918, guid: e23391bfefd6d1c49b9cbce08748695a, type: 3}
 --- !u!1 &1635656938
 GameObject:
@@ -3326,3 +3380,4 @@ SceneRoots:
   - {fileID: 600511713}
   - {fileID: 1016339101}
   - {fileID: 843729088}
+  - {fileID: 1417548182}
