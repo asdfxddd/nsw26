@@ -17,13 +17,14 @@ public class CoinController : MonoBehaviour
             return;
         }
 
-        if (!other.TryGetComponent<PlayerStatus>(out PlayerStatus playerStatus))
+        CoinManager coinManager = CoinManager.Instance;
+        if (coinManager == null)
         {
             return;
         }
 
         isCollected = true;
-        playerStatus.AddCoins(coinValue);
+        coinManager.AddCoins(coinValue);
         Destroy(gameObject);
     }
 
