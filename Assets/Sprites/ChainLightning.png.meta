@@ -1,0 +1,371 @@
+fileFormatVersion: 2
+guid: 5fd2e5b8c58e95a429fd90d6347660b3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3469067119388258510
+    second: ChainLightning_0
+  - first:
+      213: 2171777871114399653
+    second: ChainLightning_1
+  - first:
+      213: 771166376786319095
+    second: ChainLightning_2
+  - first:
+      213: -5277820843285985391
+    second: ChainLightning_3
+  - first:
+      213: 2099869453310149314
+    second: ChainLightning_4
+  - first:
+      213: 1439682325841475727
+    second: ChainLightning_5
+  - first:
+      213: -1534557464058762531
+    second: ChainLightning_6
+  - first:
+      213: 307107527980717095
+    second: ChainLightning_7
+  - first:
+      213: 399614621054276043
+    second: ChainLightning_8
+  - first:
+      213: 6593395008533703225
+    second: ChainLightning_9
+  - first:
+      213: -2534629928416098036
+    second: ChainLightning_10
+  - first:
+      213: 4704112152807255794
+    second: ChainLightning_11
+  - first:
+      213: 185004093042415389
+    second: ChainLightning_12
+  - first:
+      213: 4071274470596305195
+    second: ChainLightning_13
+  - first:
+      213: 7230608254230457777
+    second: ChainLightning_14
+  - first:
+      213: -5016760175089734889
+    second: ChainLightning_15
+  - first:
+      213: 9189833535582379640
+    second: ChainLightning_16
+  - first:
+      213: 5333655524488583308
+    second: ChainLightning_17
+  - first:
+      213: 8360665746775120202
+    second: ChainLightning_18
+  - first:
+      213: -1818042609863931492
+    second: ChainLightning_19
+  - first:
+      213: 2587970729632526275
+    second: ChainLightning_20
+  - first:
+      213: 7043391517358040986
+    second: ChainLightning_21
+  - first:
+      213: -6253909090036238837
+    second: ChainLightning_22
+  - first:
+      213: -2558941301591329649
+    second: ChainLightning_23
+  - first:
+      213: -2542980593322784043
+    second: ChainLightning_24
+  - first:
+      213: 1342001409946791789
+    second: ChainLightning_25
+  - first:
+      213: -5959322516083602668
+    second: ChainLightning_26
+  - first:
+      213: -390294292397048669
+    second: ChainLightning_27
+  - first:
+      213: -1113662665993842104
+    second: ChainLightning_28
+  - first:
+      213: -3588963953800493514
+    second: ChainLightning_29
+  - first:
+      213: -1769418234968766924
+    second: ChainLightning_30
+  - first:
+      213: -805606949906706356
+    second: ChainLightning_31
+  - first:
+      213: -5876427148817219037
+    second: ChainLightning_32
+  - first:
+      213: 5936116826417380492
+    second: ChainLightning_33
+  - first:
+      213: -2130590246354664995
+    second: ChainLightning_34
+  - first:
+      213: -7471553826839560224
+    second: ChainLightning_35
+  - first:
+      213: 3359753423646875049
+    second: ChainLightning_36
+  - first:
+      213: -6291564106782933074
+    second: ChainLightning_37
+  - first:
+      213: 4329825271031146449
+    second: ChainLightning_38
+  - first:
+      213: -6941949522875744124
+    second: ChainLightning_39
+  - first:
+      213: -6527492349070296718
+    second: ChainLightning_40
+  - first:
+      213: 554986579462893627
+    second: ChainLightning_41
+  - first:
+      213: -451904491945877793
+    second: ChainLightning_42
+  - first:
+      213: 6433235811118224211
+    second: ChainLightning_43
+  - first:
+      213: 6096499385692986599
+    second: ChainLightning_44
+  - first:
+      213: -8508586424674258208
+    second: ChainLightning_45
+  - first:
+      213: -768801785996811453
+    second: ChainLightning_46
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 512
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ChainLightning_0
+      rect:
+        serializedVersion: 2
+        x: 1043
+        y: 508
+        width: 360
+        height: 90
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23f00e6b5d56bdfc0800000000000000
+      internalID: -3469067119388258510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChainLightning_1
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 508
+        width: 450
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5afe3da9774b32e10800000000000000
+      internalID: 2171777871114399653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChainLightning_2
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 508
+        width: 360
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f6d21fdbbbb3ba00800000000000000
+      internalID: 771166376786319095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: df68262b6cc27294ab4647e2c419def5
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ChainLightning_0: -3469067119388258510
+      ChainLightning_1: 2171777871114399653
+      ChainLightning_10: -2534629928416098036
+      ChainLightning_11: 4704112152807255794
+      ChainLightning_12: 185004093042415389
+      ChainLightning_13: 4071274470596305195
+      ChainLightning_14: 7230608254230457777
+      ChainLightning_15: -5016760175089734889
+      ChainLightning_16: 9189833535582379640
+      ChainLightning_17: 5333655524488583308
+      ChainLightning_18: 8360665746775120202
+      ChainLightning_19: -1818042609863931492
+      ChainLightning_2: 771166376786319095
+      ChainLightning_20: 2587970729632526275
+      ChainLightning_21: 7043391517358040986
+      ChainLightning_22: -6253909090036238837
+      ChainLightning_23: -2558941301591329649
+      ChainLightning_24: -2542980593322784043
+      ChainLightning_25: 1342001409946791789
+      ChainLightning_26: -5959322516083602668
+      ChainLightning_27: -390294292397048669
+      ChainLightning_28: -1113662665993842104
+      ChainLightning_29: -3588963953800493514
+      ChainLightning_3: -5277820843285985391
+      ChainLightning_30: -1769418234968766924
+      ChainLightning_31: -805606949906706356
+      ChainLightning_32: -5876427148817219037
+      ChainLightning_33: 5936116826417380492
+      ChainLightning_34: -2130590246354664995
+      ChainLightning_35: -7471553826839560224
+      ChainLightning_36: 3359753423646875049
+      ChainLightning_37: -6291564106782933074
+      ChainLightning_38: 4329825271031146449
+      ChainLightning_39: -6941949522875744124
+      ChainLightning_4: 2099869453310149314
+      ChainLightning_40: -6527492349070296718
+      ChainLightning_41: 554986579462893627
+      ChainLightning_42: -451904491945877793
+      ChainLightning_43: 6433235811118224211
+      ChainLightning_44: 6096499385692986599
+      ChainLightning_45: -8508586424674258208
+      ChainLightning_46: -768801785996811453
+      ChainLightning_5: 1439682325841475727
+      ChainLightning_6: -1534557464058762531
+      ChainLightning_7: 307107527980717095
+      ChainLightning_8: 399614621054276043
+      ChainLightning_9: 6593395008533703225
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
