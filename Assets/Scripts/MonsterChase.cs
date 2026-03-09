@@ -34,6 +34,11 @@ public class MonsterChase : MonoBehaviour
 
     private void Update()
     {
+        if (TimeStopController.IsTimeStopped)
+        {
+            return;
+        }
+
         if (target == null)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");

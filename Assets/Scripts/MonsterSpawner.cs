@@ -96,6 +96,11 @@ public class MonsterSpawner : MonoBehaviour
 
     private void Update()
     {
+        if (TimeStopController.IsTimeStopped)
+        {
+            return;
+        }
+
         if (player == null || activeRules.Count == 0)
         {
             return;
