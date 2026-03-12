@@ -20,7 +20,6 @@ public class MagnetBoostController : MonoBehaviour
 
     private PlayerMagnetCollector magnetCollector;
     private CollectibleController collectibleController;
-    private PlayerStatus playerStatus;
     private float remainingTime;
     private float rescanTimer;
     private bool isActive;
@@ -29,7 +28,6 @@ public class MagnetBoostController : MonoBehaviour
     {
         magnetCollector = GetComponent<PlayerMagnetCollector>();
         collectibleController = GetComponent<CollectibleController>();
-        playerStatus = GetComponent<PlayerStatus>();
     }
 
     private void Update()
@@ -61,17 +59,12 @@ public class MagnetBoostController : MonoBehaviour
             magnetCollector = GetComponent<PlayerMagnetCollector>();
         }
 
-        if (playerStatus == null)
-        {
-            playerStatus = GetComponent<PlayerStatus>();
-        }
-
         if (collectibleController == null)
         {
             collectibleController = GetComponent<CollectibleController>();
         }
 
-        if (magnetCollector == null || playerStatus == null)
+        if (magnetCollector == null || collectibleController == null)
         {
             return;
         }
@@ -91,9 +84,13 @@ public class MagnetBoostController : MonoBehaviour
             return;
         }
 
-        GameObject[] allCollectibles = GameObject.FindGameObjectsWithTag(collectibleTag);
-        float boostedSpeed = playerStatus.PickupMoveSpeed * Mathf.Max(0.01f, boostSpeedMultiplier);
+        if (!collectibleController.TryGetSettings(collectibleTag, out float configuredMoveSpeed, out float configuredDistance))
+        {
+            return;
+        }
 
+        GameObject[] allCollectibles = GameObject.FindGameObjectsWithTag(collectibleTag);
+        float boostedSpeed = configuredMoveSpeed * Mathf.Max(0.01f, boostSpeedMultiplier);
         for (int i = 0; i < allCollectibles.Length; i++)
         {
             GameObject collectibleObject = allCollectibles[i];
@@ -108,13 +105,7 @@ public class MagnetBoostController : MonoBehaviour
                 continue;
             }
 
-            float distance = 0.05f;
-            if (collectibleController != null && collectibleController.TryGetSettings(collectibleTag, out _, out float configuredDistance))
-            {
-                distance = configuredDistance;
-            }
-
-            collectible.BeginMagnetAttraction(transform, boostedSpeed, distance);
+            collectible.BeginMagnetAttraction(transform, boostedSpeed, configuredDistance);
         }
     }
 
