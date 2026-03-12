@@ -19,6 +19,7 @@ public class MagnetBoostController : MonoBehaviour
     private float rescanInterval = 0.15f;
 
     private PlayerMagnetCollector magnetCollector;
+    private CollectibleController collectibleController;
     private PlayerStatus playerStatus;
     private float remainingTime;
     private float rescanTimer;
@@ -27,6 +28,7 @@ public class MagnetBoostController : MonoBehaviour
     private void Awake()
     {
         magnetCollector = GetComponent<PlayerMagnetCollector>();
+        collectibleController = GetComponent<CollectibleController>();
         playerStatus = GetComponent<PlayerStatus>();
     }
 
@@ -62,6 +64,11 @@ public class MagnetBoostController : MonoBehaviour
         if (playerStatus == null)
         {
             playerStatus = GetComponent<PlayerStatus>();
+        }
+
+        if (collectibleController == null)
+        {
+            collectibleController = GetComponent<CollectibleController>();
         }
 
         if (magnetCollector == null || playerStatus == null)
@@ -101,7 +108,13 @@ public class MagnetBoostController : MonoBehaviour
                 continue;
             }
 
-            collectible.BeginMagnetAttraction(transform, boostedSpeed);
+            float distance = 0.05f;
+            if (collectibleController != null && collectibleController.TryGetSettings(collectibleTag, out _, out float configuredDistance))
+            {
+                distance = configuredDistance;
+            }
+
+            collectible.BeginMagnetAttraction(transform, boostedSpeed, distance);
         }
     }
 
