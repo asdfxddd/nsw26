@@ -19,7 +19,7 @@ public class MagnetBoostController : MonoBehaviour
     private float rescanInterval = 0.15f;
 
     private PlayerMagnetCollector magnetCollector;
-    private PlayerStatus playerStatus;
+    private CollectibleController collectibleController;
     private float remainingTime;
     private float rescanTimer;
     private bool isActive;
@@ -27,7 +27,7 @@ public class MagnetBoostController : MonoBehaviour
     private void Awake()
     {
         magnetCollector = GetComponent<PlayerMagnetCollector>();
-        playerStatus = GetComponent<PlayerStatus>();
+        collectibleController = GetComponent<CollectibleController>();
     }
 
     private void Update()
@@ -59,12 +59,12 @@ public class MagnetBoostController : MonoBehaviour
             magnetCollector = GetComponent<PlayerMagnetCollector>();
         }
 
-        if (playerStatus == null)
+        if (collectibleController == null)
         {
-            playerStatus = GetComponent<PlayerStatus>();
+            collectibleController = GetComponent<CollectibleController>();
         }
 
-        if (magnetCollector == null || playerStatus == null)
+        if (magnetCollector == null || collectibleController == null)
         {
             return;
         }
@@ -84,9 +84,13 @@ public class MagnetBoostController : MonoBehaviour
             return;
         }
 
-        GameObject[] allCollectibles = GameObject.FindGameObjectsWithTag(collectibleTag);
-        float boostedSpeed = playerStatus.PickupMoveSpeed * Mathf.Max(0.01f, boostSpeedMultiplier);
+        if (!collectibleController.TryGetSettings(collectibleTag, out float configuredMoveSpeed, out float configuredDistance))
+        {
+            return;
+        }
 
+        GameObject[] allCollectibles = GameObject.FindGameObjectsWithTag(collectibleTag);
+        float boostedSpeed = configuredMoveSpeed * Mathf.Max(0.01f, boostSpeedMultiplier);
         for (int i = 0; i < allCollectibles.Length; i++)
         {
             GameObject collectibleObject = allCollectibles[i];
@@ -101,7 +105,7 @@ public class MagnetBoostController : MonoBehaviour
                 continue;
             }
 
-            collectible.BeginMagnetAttraction(transform, boostedSpeed);
+            collectible.BeginMagnetAttraction(transform, boostedSpeed, configuredDistance);
         }
     }
 

@@ -17,10 +17,12 @@ public class PlayerMagnetCollector : MonoBehaviour
 
     private readonly Collider2D[] overlapResults = new Collider2D[256];
     private PlayerStatus playerStatus;
+    private CollectibleController collectibleController;
 
     private void Awake()
     {
         playerStatus = GetComponent<PlayerStatus>();
+        collectibleController = GetComponent<CollectibleController>();
     }
 
     private void Update()
@@ -34,6 +36,15 @@ public class PlayerMagnetCollector : MonoBehaviour
         {
             playerStatus = GetComponent<PlayerStatus>();
             if (playerStatus == null)
+            {
+                return;
+            }
+        }
+
+        if (collectibleController == null)
+        {
+            collectibleController = GetComponent<CollectibleController>();
+            if (collectibleController == null)
             {
                 return;
             }
@@ -65,7 +76,13 @@ public class PlayerMagnetCollector : MonoBehaviour
                 continue;
             }
 
-            collectible.BeginMagnetAttraction(transform, GetEffectivePickupMoveSpeed());
+            if (!collectibleController.TryGetSettings(collectibleCollider.tag, out float configuredMoveSpeed, out float configuredDistance))
+            {
+                continue;
+            }
+
+            float moveSpeed = configuredMoveSpeed * temporarySpeedMultiplier;
+            collectible.BeginMagnetAttraction(transform, moveSpeed, configuredDistance);
         }
     }
 
@@ -89,16 +106,6 @@ public class PlayerMagnetCollector : MonoBehaviour
         }
 
         return playerStatus.CurrentPickupRadius * temporaryRadiusMultiplier;
-    }
-
-    private float GetEffectivePickupMoveSpeed()
-    {
-        if (playerStatus == null)
-        {
-            return 0.01f;
-        }
-
-        return playerStatus.PickupMoveSpeed * temporarySpeedMultiplier;
     }
 
     private void OnDrawGizmosSelected()

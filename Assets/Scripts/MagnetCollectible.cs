@@ -2,10 +2,7 @@ using UnityEngine;
 
 public abstract class MagnetCollectible : MonoBehaviour, IMagnetCollectible
 {
-    [SerializeField, Tooltip("자석 흡수 이동 속도")]
     private float magnetMoveSpeed = 10f;
-
-    [SerializeField, Tooltip("플레이어 도달 판정 거리")]
     private float collectDistance = 0.05f;
 
     private Transform attractionTarget;
@@ -14,7 +11,7 @@ public abstract class MagnetCollectible : MonoBehaviour, IMagnetCollectible
 
     public bool IsCollected => isCollected;
 
-    public void BeginMagnetAttraction(Transform target, float moveSpeed)
+    public void BeginMagnetAttraction(Transform target, float moveSpeed, float distance)
     {
         if (target == null || isCollected)
         {
@@ -27,6 +24,11 @@ public abstract class MagnetCollectible : MonoBehaviour, IMagnetCollectible
         if (moveSpeed > 0f)
         {
             magnetMoveSpeed = moveSpeed;
+        }
+
+        if (distance > 0f)
+        {
+            collectDistance = distance;
         }
     }
 

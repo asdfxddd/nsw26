@@ -5,12 +5,6 @@ public class ExpDropManager : MonoBehaviour
     private static ExpDropManager instance;
 
     [SerializeField]
-    private float magnetRange = 2.5f;
-
-    [SerializeField]
-    private float absorbMoveSpeed = 10f;
-
-    [SerializeField]
     private Transform playerTransform;
 
     public static ExpDropManager Instance
@@ -34,10 +28,6 @@ public class ExpDropManager : MonoBehaviour
             return instance;
         }
     }
-
-    public float MagnetRange => magnetRange;
-
-    public float AbsorbMoveSpeed => absorbMoveSpeed;
 
     public int TotalExp => PlayerExperience.Instance.CurrentExp;
 
@@ -97,9 +87,4 @@ public class ExpDropManager : MonoBehaviour
         }
     }
 
-    private void OnValidate()
-    {
-        magnetRange = Mathf.Max(0f, magnetRange);
-        absorbMoveSpeed = Mathf.Max(0.01f, absorbMoveSpeed);
-    }
 }
