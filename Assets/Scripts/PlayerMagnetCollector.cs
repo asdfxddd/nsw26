@@ -17,10 +17,12 @@ public class PlayerMagnetCollector : MonoBehaviour
 
     private readonly Collider2D[] overlapResults = new Collider2D[256];
     private PlayerStatus playerStatus;
+    private CollectibleController collectibleController;
 
     private void Awake()
     {
         playerStatus = GetComponent<PlayerStatus>();
+        collectibleController = GetComponent<CollectibleController>();
     }
 
     private void Update()
@@ -37,6 +39,11 @@ public class PlayerMagnetCollector : MonoBehaviour
             {
                 return;
             }
+        }
+
+        if (collectibleController == null)
+        {
+            collectibleController = GetComponent<CollectibleController>();
         }
 
         int hitCount = Physics2D.OverlapCircleNonAlloc(
@@ -65,7 +72,16 @@ public class PlayerMagnetCollector : MonoBehaviour
                 continue;
             }
 
-            collectible.BeginMagnetAttraction(transform, GetEffectivePickupMoveSpeed());
+            float moveSpeed = GetEffectivePickupMoveSpeed();
+            float distance = 0.05f;
+
+            if (collectibleController != null && collectibleController.TryGetSettings(collectibleCollider.tag, out float configuredMoveSpeed, out float configuredDistance))
+            {
+                moveSpeed = configuredMoveSpeed;
+                distance = configuredDistance;
+            }
+
+            collectible.BeginMagnetAttraction(transform, moveSpeed, distance);
         }
     }
 
