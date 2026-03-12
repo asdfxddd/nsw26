@@ -169,4 +169,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4eb4b989a54f8db0be5e53f53d2789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinController
-  coinValue: 1
+  coinValue: 15
