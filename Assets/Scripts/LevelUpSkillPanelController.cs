@@ -29,18 +29,6 @@ public class LevelUpSkillPanelController : MonoBehaviour
     private bool isPanelOpen;
     private List<LevelUpCardData> currentlyPresentedCards = new List<LevelUpCardData>();
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    private static void Bootstrap()
-    {
-        if (FindFirstObjectByType<LevelUpSkillPanelController>() != null)
-        {
-            return;
-        }
-
-        GameObject controllerObject = new GameObject(nameof(LevelUpSkillPanelController));
-        controllerObject.AddComponent<LevelUpSkillPanelController>();
-    }
-
     private void Awake()
     {
         LoadLevelUpCardTable();

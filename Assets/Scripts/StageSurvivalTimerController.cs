@@ -61,19 +61,6 @@ public class StageSurvivalTimerController : MonoBehaviour
     private bool timerRunning;
     private StageResult result = StageResult.None;
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    private static void Bootstrap()
-    {
-        StageSurvivalTimerController existing = FindObjectOfType<StageSurvivalTimerController>();
-        if (existing != null)
-        {
-            return;
-        }
-
-        GameObject bootstrapObject = new GameObject(nameof(StageSurvivalTimerController));
-        bootstrapObject.AddComponent<StageSurvivalTimerController>();
-    }
-
     private void Awake()
     {
         ResolveReferences();
