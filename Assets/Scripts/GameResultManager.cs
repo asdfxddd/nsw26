@@ -22,6 +22,7 @@ public class GameResultManager : MonoBehaviour
     private string mainSceneName = "MainScene";
 
     private bool hasResolvedResult;
+    private bool hasCommittedRunCoins;
 
     private void Awake()
     {
@@ -115,6 +116,8 @@ public class GameResultManager : MonoBehaviour
             return;
         }
 
+        CommitRunCoinsOnce();
+
         hasResolvedResult = true;
         GameplayPauseState.EnterResultPause();
 
@@ -139,6 +142,33 @@ public class GameResultManager : MonoBehaviour
             btnHome.gameObject.SetActive(true);
             btnHome.interactable = true;
         }
+    }
+
+    private void CommitRunCoinsOnce()
+    {
+        if (hasCommittedRunCoins)
+        {
+            return;
+        }
+
+        hasCommittedRunCoins = true;
+
+        CoinManager coinManager = CoinManager.Instance;
+        CoinPersistenceManager persistence = CoinPersistenceManager.Instance;
+
+        if (coinManager == null)
+        {
+            Debug.LogWarning("[CoinPersistence] CoinManager가 없어 런 코인 합산을 건너뜁니다.");
+            return;
+        }
+
+        if (persistence == null)
+        {
+            Debug.LogWarning("[CoinPersistence] CoinPersistenceManager가 없어 런 코인 합산을 건너뜁니다.");
+            return;
+        }
+
+        persistence.CommitRunCoins(coinManager.CurrentCoins);
     }
 
     private void HandleHomeButtonClicked()
