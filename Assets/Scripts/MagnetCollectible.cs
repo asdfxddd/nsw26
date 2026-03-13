@@ -10,6 +10,8 @@ public abstract class MagnetCollectible : MonoBehaviour, IMagnetCollectible
     private bool isCollected;
 
     public bool IsCollected => isCollected;
+    public virtual bool CanUseBoostedPickupRadius => true;
+    protected Transform AttractionTarget => attractionTarget;
 
     public void BeginMagnetAttraction(Transform target, float moveSpeed, float distance)
     {

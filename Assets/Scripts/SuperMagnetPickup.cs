@@ -1,28 +1,26 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class SuperMagnetPickup : MonoBehaviour
+public class SuperMagnetPickup : MagnetCollectible
 {
-    [SerializeField, Tooltip("플레이어 태그")]
-    private string playerTag = "Player";
+    public override bool CanUseBoostedPickupRadius => false;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected override void OnCollected()
     {
-        if (!other.CompareTag(playerTag))
+        if (AttractionTarget == null)
         {
             return;
         }
 
-        MagnetBoostController boostController = other.GetComponent<MagnetBoostController>();
+        MagnetBoostController boostController = AttractionTarget.GetComponent<MagnetBoostController>();
         if (boostController == null)
         {
-            boostController = other.GetComponentInParent<MagnetBoostController>();
+            boostController = AttractionTarget.GetComponentInParent<MagnetBoostController>();
         }
 
         if (boostController != null)
         {
             boostController.MagnetBoost();
-            Destroy(gameObject);
         }
     }
 }

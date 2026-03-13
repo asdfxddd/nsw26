@@ -100,7 +100,7 @@ public class MagnetBoostController : MonoBehaviour
             }
 
             IMagnetCollectible collectible = collectibleObject.GetComponent<IMagnetCollectible>();
-            if (collectible == null || collectible.IsCollected)
+            if (collectible == null || collectible.IsCollected || !collectible.CanUseBoostedPickupRadius)
             {
                 continue;
             }

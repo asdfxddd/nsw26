@@ -1,35 +1,28 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class CoinController : MonoBehaviour
+public class CoinController : MagnetCollectible
 {
     [SerializeField, Tooltip("획득 시 지급할 코인 수량")]
     private int coinValue = 1;
 
-    private bool isCollected;
-
+    public override bool CanUseBoostedPickupRadius => false;
     public int CoinValue => coinValue;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected override void OnCollected()
     {
-        if (isCollected || GameplayPauseState.IsGameplayPaused || !other.CompareTag("Player"))
-        {
-            return;
-        }
-
         CoinManager coinManager = CoinManager.Instance;
         if (coinManager == null)
         {
             return;
         }
 
-        isCollected = true;
         coinManager.AddCoins(coinValue);
-        Destroy(gameObject);
     }
 
-    private void OnValidate()
+    protected override void OnValidate()
     {
+        base.OnValidate();
         coinValue = Mathf.Max(1, coinValue);
     }
 }
