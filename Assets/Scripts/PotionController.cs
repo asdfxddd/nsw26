@@ -1,25 +1,25 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class PotionController : MonoBehaviour
+public class PotionController : MagnetCollectible
 {
     [SerializeField, Tooltip("포션 획득 시 회복되는 체력 값")]
     private int healValue = 20;
 
-    private bool isConsumed;
-
+    public override bool CanUseBoostedPickupRadius => false;
     public int HealValue => healValue;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected override void OnCollected()
     {
-        if (isConsumed || GameplayPauseState.IsGameplayPaused)
+        if (AttractionTarget == null)
         {
             return;
         }
 
-        if (!other.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
+        PlayerHealth playerHealth = AttractionTarget.GetComponent<PlayerHealth>();
+        if (playerHealth == null)
         {
-            playerHealth = other.GetComponentInParent<PlayerHealth>();
+            playerHealth = AttractionTarget.GetComponentInParent<PlayerHealth>();
         }
 
         if (playerHealth == null)
@@ -31,13 +31,11 @@ public class PotionController : MonoBehaviour
         {
             playerHealth.Heal(healValue);
         }
-
-        isConsumed = true;
-        Destroy(gameObject);
     }
 
-    private void OnValidate()
+    protected override void OnValidate()
     {
+        base.OnValidate();
         healValue = Mathf.Max(0, healValue);
     }
 }

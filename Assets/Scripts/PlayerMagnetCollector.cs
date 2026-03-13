@@ -50,9 +50,12 @@ public class PlayerMagnetCollector : MonoBehaviour
             }
         }
 
+        float basePickupRadius = GetBasePickupRadius();
+        float boostedPickupRadius = GetEffectivePickupRadius(basePickupRadius);
+
         int hitCount = Physics2D.OverlapCircleNonAlloc(
             transform.position,
-            GetEffectivePickupRadius(),
+            boostedPickupRadius,
             overlapResults,
             collectibleMask);
 
@@ -72,6 +75,14 @@ public class PlayerMagnetCollector : MonoBehaviour
 
             IMagnetCollectible collectible = collectibleCollider.GetComponent<IMagnetCollectible>();
             if (collectible == null || collectible.IsCollected)
+            {
+                continue;
+            }
+
+            float allowedPickupRadius = collectible.CanUseBoostedPickupRadius
+                ? boostedPickupRadius
+                : basePickupRadius;
+            if (Vector2.Distance(transform.position, collectibleCollider.transform.position) > allowedPickupRadius)
             {
                 continue;
             }
@@ -98,14 +109,19 @@ public class PlayerMagnetCollector : MonoBehaviour
         temporarySpeedMultiplier = 1f;
     }
 
-    private float GetEffectivePickupRadius()
+    private float GetBasePickupRadius()
     {
         if (playerStatus == null)
         {
             return 0.01f;
         }
 
-        return playerStatus.CurrentPickupRadius * temporaryRadiusMultiplier;
+        return playerStatus.CurrentPickupRadius;
+    }
+
+    private float GetEffectivePickupRadius(float basePickupRadius)
+    {
+        return basePickupRadius * temporaryRadiusMultiplier;
     }
 
     private void OnDrawGizmosSelected()
